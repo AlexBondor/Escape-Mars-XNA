@@ -1,0 +1,16 @@
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\UnitTests.dll
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\UnitTests.pdb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Escape_Mars_XNA.exe
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Escape_Mars_XNA.pdb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\obj\Debug\UnitTests.dll
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\obj\Debug\UnitTests.pdb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Content\Robot.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Content\Dot.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Content\Ground.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Content\LineTexture.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Content\Hole.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Content\Rocket.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Content\Rock.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Map.txt
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\UnitTests\bin\Debug\Content\Sneaky.xnb

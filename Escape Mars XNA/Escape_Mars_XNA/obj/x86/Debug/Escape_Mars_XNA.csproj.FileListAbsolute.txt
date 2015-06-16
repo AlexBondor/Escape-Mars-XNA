@@ -1,0 +1,15 @@
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Escape_Mars_XNA.exe
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Escape_Mars_XNA.pdb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\obj\x86\Debug\Escape_Mars_XNA.csprojResolveAssemblyReference.cache
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\obj\x86\Debug\Escape_Mars_XNA.exe
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\obj\x86\Debug\Escape_Mars_XNA.pdb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Robot.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Dot.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Ground.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\LineTexture.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Map.txt
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Hole.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Rocket.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Rock.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Sneaky.xnb
