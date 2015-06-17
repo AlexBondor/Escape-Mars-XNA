@@ -43,10 +43,7 @@ namespace Escape_Mars_XNA
         {
             var node = MapGraph.GetNodeByRowCol(1, 1);
 
-            var robot = new Robot(new Vector2(node.Position.X + node.Width/2, node.Position.Y + node.Height/2))
-            {
-                AnimatedSprite = {Animate = false}
-            };
+            var robot = new Robot(new Vector2(node.Position.X + node.Width/2, node.Position.Y + node.Height/2));
 
             Robot = robot;
             Objects.Add(robot);
@@ -158,10 +155,7 @@ namespace Escape_Mars_XNA
         
         public void SearchTo(Vector2 to)
         {
-            Robot.AnimatedSprite.Animate = true;
-            Robot.GoTo(to);
-
-            UpdateGraph(Robot.PathPlanning.GetAStar());
+            Robot.CreatePathTo(to);
         }
 
         // Update the colors of the graph according the
@@ -172,6 +166,8 @@ namespace Escape_Mars_XNA
             {
                 edge.Color = Color.LightGray;
             }
+
+            if (aStar.GetMinSpTree() == null) return;
 
             var mst = aStar.GetMinSpTree();
             foreach (var e in mst.Select(edge => MapGraph.GetDrawableEdge(edge.From, edge.To)))

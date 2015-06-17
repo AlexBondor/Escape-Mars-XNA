@@ -26,10 +26,6 @@ namespace Escape_Mars_XNA.Character
             AnimatedSprite.Update(elapsedTime);
         }
 
-        public override void UpdateSprite()
-        {
-        }
-
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(

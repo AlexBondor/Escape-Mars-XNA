@@ -30,19 +30,20 @@ namespace Escape_Mars_XNA.Path
         }
 
         public bool CreatePath(Vector2 from, Vector2 to)
-        {
-            _owner.Arrived = false;
-            _owner.Arriving = false;
-
+        { 
             _startPosition = from;
             _endPos = to;
 
             var startNode = _navGraph.GetNodeByPosition(from);
             var endNode = _navGraph.GetNodeByPosition(to);
 
+            if (startNode == null || endNode == null)
+            {
+                return false;
+            }
+
             if (startNode.Index == endNode.Index)
             {
-                _owner.Arrived = true;
                 return false;
             }
 
@@ -51,7 +52,10 @@ namespace Escape_Mars_XNA.Path
             try
             {
                 _path = _aStar.GetPath();
-                if (_path.Count == 0) return false;
+                if (_path.Count == 0)
+                {
+                    return false;
+                }
                 _intermediatePos = Vector2Helper.ScalarAdd(_path[0].To.Position, 16);
             }
             catch (Exception)
@@ -63,19 +67,18 @@ namespace Escape_Mars_XNA.Path
 
         public void Update()
         {
-            if (_path != null && _path.Count == 0) return;
+            if (_path != null && _path.Count == 0)
+            {
+                return;
+            }
             _currentPos = _owner.Position;  
 
             if (Vector2Helper.Distance(_currentPos, _intermediatePos) < 5 && _path != null)
             {
-                if (_path.Count == 1)
-                {
-                    _owner.Arriving = true;
-                }
                 _intermediatePos = Vector2Helper.ScalarAdd(_path[0].To.Position, 16);
                 _path.Remove(_path[0]);
             }
-            _owner.SeekablePosition = _intermediatePos;
+            _owner.SteeringPosition = _intermediatePos;
         }
 
         public AStar GetAStar()

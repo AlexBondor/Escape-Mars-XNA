@@ -39,7 +39,10 @@ namespace Escape_Mars_XNA.Helper
         // is drawn
         public void Update(double elapsed)
         {
-            if (!Animate) return;
+            if (!Animate)
+            {
+                return;
+            }
 
             _elapsedTime += elapsed;
 

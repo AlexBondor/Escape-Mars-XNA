@@ -145,9 +145,9 @@ namespace Escape_Mars_XNA.Path
             {
                 var node =  Nodes.First(graphNode =>
                     graphNode.Position.X <= position.X &&
-                    graphNode.Position.X + graphNode.Width >= position.X &&
+                    graphNode.Position.X + graphNode.Width > position.X &&
                     graphNode.Position.Y <= position.Y &&
-                    graphNode.Position.Y + graphNode.Height >= position.Y);
+                    graphNode.Position.Y + graphNode.Height > position.Y);
                 return node;
             }
             catch (Exception)

@@ -16,7 +16,7 @@ namespace Escape_Mars_XNA.Character
             Height = 64;
 
             // Object properties
-            MaxSpeed = 50;
+            MaxSpeed = 70;
             Mass = 0.1;
 
             // Set the initial position of the Robot
@@ -32,77 +32,15 @@ namespace Escape_Mars_XNA.Character
 
         public override void Update(double elapsedTime)
         {
-            var whatever = SteeringBehaviour.Hide(World.Robot, World.MapGraph.GetObstacles());
+            UpdatePathPlanning();
 
-            GoTo(HidingSpot);
-
-            if (Arrived)
-            {
-                AnimatedSprite.Move(AnimatedSprite.Direction.Down);
-                return; 
-            }
-
-            PathPlanning.Update();
-
-            // Calculate the combined force from each steering behavior
-            // in the vehicles' list
-            var steeringForce = Arriving ? SteeringBehaviour.Arrive(SeekablePosition, SteeringBehaviours.Deceleration.Fast) : SteeringBehaviour.Seek(SeekablePosition);
-
-            // Acceletartion = Force / Mass;
-            var acceleration = Vector2Helper.ScalarDiv(steeringForce, Mass);
-
-            // Update velocity
-            Velocity += Vector2Helper.ScalarMul(acceleration, elapsedTime);
-
-            // Make sure vehicle does not exceed maximum velocity
-            Vector2Helper.Truncate(Velocity, MaxSpeed);
-
-            // Update the position
-            Position += Vector2Helper.ScalarMul(Velocity, elapsedTime);
-
-            // Update the heading if the vehicle has a velocity greater
-            // than a very small value
-            if (Velocity.LengthSquared() > 0.00000001)
-            {
-                Heading = Vector2Helper.Normalize(Velocity);
-
-                Side = Vector2Helper.Perp(Heading);
-            }
-
-            // Treat the screan as a toroid
-            Position = Vector2Helper.WrapAround(Position);
+            Behaviour = Bvr.Hide;
+            Enemy = World.Robot;
+            Obstacles = World.MapGraph.GetObstacles();
+            UpdatePhysics(elapsedTime);
 
             // Update sprite 
-            UpdateSprite();
-            AnimatedSprite.Update(elapsedTime);
-        }
-
-        public override void UpdateSprite()
-        {
-            if (Heading.X > 0 && Heading.Y < 0.45 && Heading.Y > -0.45 && Direction != AnimatedSprite.Direction.Right)
-            {
-                Direction = AnimatedSprite.Direction.Right;
-                AnimatedSprite.Move(AnimatedSprite.Direction.Right);
-                return;
-            }
-            if (Heading.X < 0 && Heading.Y < 0.45 && Heading.Y > -0.45 && Direction != AnimatedSprite.Direction.Left)
-            {
-                Direction = AnimatedSprite.Direction.Left;
-                AnimatedSprite.Move(AnimatedSprite.Direction.Left);
-                return;
-            }
-            if (Heading.Y > 0 && Heading.X < 0.45 && Heading.X > -0.45 && Direction != AnimatedSprite.Direction.Down)
-            {
-                Direction = AnimatedSprite.Direction.Down;
-                AnimatedSprite.Move(AnimatedSprite.Direction.Down);
-                return;
-            }
-            if (Heading.Y < 0 && Heading.X < 0.45 && Heading.X > -0.45 && Direction != AnimatedSprite.Direction.Up)
-            {
-                Direction = AnimatedSprite.Direction.Up;
-                AnimatedSprite.Move(AnimatedSprite.Direction.Up);
-                return;
-            }
+            UpdateSprite(elapsedTime);  
         }
 
         public override void Draw(SpriteBatch spriteBatch)

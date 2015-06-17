@@ -12,18 +12,18 @@ namespace Escape_Mars_XNA.Entity
         // Height of sprite;
         public int Height;
 
-        // Sprite used for animating object movement
-        public AnimatedSprite AnimatedSprite;
-
-        // Direction of animated sprite
-        public AnimatedSprite.Direction Direction = AnimatedSprite.Direction.Down;
-
         // A vector for position
         public Vector2 Position;
 
         // Instance of world object so that it can access any other
         // obstacles or characters
         public World World;
+
+        // Sprite used for animating object movement
+        public AnimatedSprite AnimatedSprite;
+
+        // Direction of animated sprite
+        public AnimatedSprite.Direction Direction = AnimatedSprite.Direction.Down;
 
         // Every entity has a unique identifying number
         public int Id { get; private set; }
@@ -45,8 +45,6 @@ namespace Escape_Mars_XNA.Entity
         }
 
         public abstract void Update(double elapsedTime);
-
-        public abstract void UpdateSprite();
 
         public abstract void Draw(SpriteBatch spriteBatch);
     }
