@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Escape_Mars_XNA.Path;
 
-namespace Escape_Mars_XNA.Path
+namespace Escape_Mars_XNA.Helper
 {
     public class PriorityQueue
     {

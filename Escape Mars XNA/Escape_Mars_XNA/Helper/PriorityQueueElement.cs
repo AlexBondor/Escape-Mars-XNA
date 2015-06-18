@@ -1,4 +1,6 @@
-﻿namespace Escape_Mars_XNA.Path
+﻿using Escape_Mars_XNA.Path;
+
+namespace Escape_Mars_XNA.Helper
 {
     public class PriorityQueueElement
     {

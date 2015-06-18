@@ -12,6 +12,9 @@ namespace Escape_Mars_XNA.Entity
         // Height of sprite;
         public int Height;
 
+        // Every character starts with default health value of 100
+        public int Health = 100;
+
         // A vector for position
         public Vector2 Position;
 
@@ -28,6 +31,8 @@ namespace Escape_Mars_XNA.Entity
         // Every entity has a unique identifying number
         public int Id { get; private set; }
 
+        public EntityFeature.Itm ItemType { get; set; }
+
         // This is the nex valid id. Each time a BaseGameEntity is
         // instantiated this value is updated
         private static int _nextValidId;
@@ -42,6 +47,8 @@ namespace Escape_Mars_XNA.Entity
             Height = 64;
 
             World = World.Instance();
+
+            ItemType = EntityFeature.Itm.NotSet;
         }
 
         public abstract void Update(double elapsedTime);

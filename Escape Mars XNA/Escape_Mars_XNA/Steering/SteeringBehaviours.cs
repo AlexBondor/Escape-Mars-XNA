@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.Remoting.Proxies;
 using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
 using Escape_Mars_XNA.Path;
@@ -67,12 +66,16 @@ namespace Escape_Mars_XNA.Steering
         {
             var deltaPos = posTarget - _owner.Position;
 
-            if (deltaPos.Length() <= double.Epsilon) return Vector2.Zero;
+            if (deltaPos.LengthSquared() < 1)
+            {
+                _owner.Velocity = Vector2.Zero;
+                return Vector2.Zero;
+            }
 
             deltaPos.Normalize();
 
             var desiredVelocity = Vector2Helper.ScalarMul(deltaPos, _owner.MaxSpeed);
-
+                                                
             return desiredVelocity - _owner.Velocity;
         }
 
@@ -143,7 +146,7 @@ namespace Escape_Mars_XNA.Steering
         {
             // Calculate how far away the agent is to be from the
             // chosen obstacle's bounding radius
-            const double distanceFromBoundary = 200.0;
+            const double distanceFromBoundary = 100.0;
 
             var distAway = radius + distanceFromBoundary;
 

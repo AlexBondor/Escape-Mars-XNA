@@ -1,5 +1,6 @@
 ﻿using System;
 using Escape_Mars_XNA.Entity;
+using Escape_Mars_XNA.Goal;
 using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,13 +12,13 @@ namespace Escape_Mars_XNA.Character
         public Rocket(Vector2 position)
         {
             // Sprite dimensions
-            Width = 64;
-            Height = 64;
+            Width = 128;
+            Height = 128;
 
             Position = position;
 
             // Set sprite no. of columns
-            AnimatedSprite = new AnimatedSprite(4, 5) {Animate = false};
+            AnimatedSprite = new AnimatedSprite(1, 5) {Animate = false};
         }
 
         public override void Update(double elapsedTime)
@@ -30,7 +31,7 @@ namespace Escape_Mars_XNA.Character
         {
             spriteBatch.Draw(
                 AnimatedSprite.Texture,
-                new Rectangle((int)Position.X - Width / 2, (int)Position.Y - Height / 2, Width * 2, Height * 2),
+                new Rectangle((int)Position.X - Width / 2, (int)Position.Y - Height / 2, Width, Height),
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
                 ); 

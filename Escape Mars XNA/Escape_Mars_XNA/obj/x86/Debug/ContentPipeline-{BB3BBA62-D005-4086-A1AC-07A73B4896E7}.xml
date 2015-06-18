@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Robot.xnb</Output>
-      <Time>2015-05-31T21:20:30.2933936+02:00</Time>
+      <Time>2015-06-17T18:28:47.1523768+02:00</Time>
     </Item>
     <Item>
       <Source>Dot.png</Source>
@@ -47,15 +47,6 @@
       <Time>2015-06-01T20:11:23.1853402+02:00</Time>
     </Item>
     <Item>
-      <Source>Rocket.png</Source>
-      <Name>Rocket</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Rocket.xnb</Output>
-      <Time>2015-06-01T21:10:37.7415757+02:00</Time>
-    </Item>
-    <Item>
       <Source>Rock.jpg</Source>
       <Name>Rock</Name>
       <Importer>TextureImporter</Importer>
@@ -72,6 +63,15 @@
       <Options>None</Options>
       <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Sneaky.xnb</Output>
       <Time>2015-06-15T15:31:28.1478722+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Rocket.png</Source>
+      <Name>Rocket</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Rocket.xnb</Output>
+      <Time>2015-06-17T18:55:52.0799392+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

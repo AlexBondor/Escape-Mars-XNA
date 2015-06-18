@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Escape_Mars_XNA.Goal.Composite;
 using Escape_Mars_XNA.Helper;
 using Escape_Mars_XNA.Path;
 using Escape_Mars_XNA.Steering;
@@ -15,7 +15,8 @@ namespace Escape_Mars_XNA.Entity
             Flee = 2,
             Evade = 3,
             Hide = 4,
-            Explore = 5
+            Explore = 5,
+            Idle = 6
         };
 
         // A vector for velocity
@@ -40,18 +41,20 @@ namespace Escape_Mars_XNA.Entity
         // The maximum rate (radians per second) at which this vehicle can rotate
         public double MaxTurnRate;
 
-
         public Bvr Behaviour { get; set; }
         
+        // General Position used by Steering Behaviour
+        // Set this for the Seek, Arrive, Flee or other
+        // steering behaviours
         public Vector2 SteeringPosition { get; set; }
 
+        // The enemy is used to Hide/Flee from..
         public MovingEntity Enemy { get; set; }
+        // Used by the Hide function to find hiding spots
         public GraphNode[] Obstacles { get; set; }
         public SteeringBehaviours.Dcl Deceleration { get; set; }
 
-        //public Vector2 SeekablePosition { get; set; }
-
-        //public Vector2 HidingSpot { get; set; }
+        public GoalThink Brain { get; set; }
 
         // Steering behaviour
         public SteeringBehaviours SteeringBehaviour { get; set; }
@@ -84,7 +87,7 @@ namespace Escape_Mars_XNA.Entity
                 return;
             }
 
-            if (Heading.X <= 0 && Heading.Y < 0.45 && Heading.Y > -0.45 && Direction != AnimatedSprite.Direction.Left)
+            if (Heading.X < 0 && Heading.Y < 0.45 && Heading.Y > -0.45 && Direction != AnimatedSprite.Direction.Left)
             {
                 Direction = AnimatedSprite.Direction.Left;
                 AnimatedSprite.Move(AnimatedSprite.Direction.Left);
@@ -98,7 +101,7 @@ namespace Escape_Mars_XNA.Entity
                 return;
             }
 
-            if (Heading.Y <= 0 && Heading.X < 0.45 && Heading.X > -0.45 && Direction != AnimatedSprite.Direction.Up)
+            if (Heading.Y < 0 && Heading.X < 0.45 && Heading.X > -0.45 && Direction != AnimatedSprite.Direction.Up)
             {
                 Direction = AnimatedSprite.Direction.Up;
                 AnimatedSprite.Move(AnimatedSprite.Direction.Up);
@@ -134,9 +137,10 @@ namespace Escape_Mars_XNA.Entity
                 case Bvr.Explore:
                     steeringForce = SteeringBehaviour.Explore(SteeringPosition);
                     break;
+                case Bvr.Idle:
+                    return;
                 default:
-                    steeringForce = SteeringBehaviour.Seek(SteeringPosition);
-                    break;
+                    return;
             };
 
             // Acceletartion = Force / Mass;

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Escape_Mars_XNA.Helper;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Escape_Mars_XNA.Path;
 using Microsoft.Xna.Framework;
 

@@ -85,5 +85,10 @@ namespace Escape_Mars_XNA.Path
         {
             return _aStar;
         }
+
+        public double GetCostToClosestItem(EntityFeature.Itm itemType)
+        {
+            var itemTypeNodes = _owner.World.GetItemsOfType(itemType);
+        }
     }
 }

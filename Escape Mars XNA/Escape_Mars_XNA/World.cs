@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Escape_Mars_XNA.Character;
 using Escape_Mars_XNA.Entity;
+using Escape_Mars_XNA.Helper;
 using Escape_Mars_XNA.Path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -51,7 +52,7 @@ namespace Escape_Mars_XNA
             var sneaky = new Sneaky(new Vector2(200, 200));
             Objects.Add(sneaky);
 
-            var rocket = new Rocket(new Vector2(400, 250));
+            var rocket = new Rocket(new Vector2(400, 300));
             Objects.Add(rocket);
         }
 
@@ -180,6 +181,12 @@ namespace Escape_Mars_XNA
             {
                 e.Color = Color.Black;
             }
+        }
+
+        public List<GraphNode> GetItemsOfType(EntityFeature.Itm itemType)
+        {
+            var items = Objects.Where(o => o.ItemType == itemType);
+            return items.Select(item => MapGraph.GetNodeByPosition(item.Position)).ToList();
         }
     }
 }

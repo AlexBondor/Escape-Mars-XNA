@@ -1,4 +1,5 @@
-﻿using Escape_Mars_XNA.Entity;
+﻿using System;
+using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
 using Escape_Mars_XNA.Path;
 using Escape_Mars_XNA.Steering;
@@ -16,7 +17,7 @@ namespace Escape_Mars_XNA.Character
             Height = 64;
 
             // Object properties
-            MaxSpeed = 70;
+            MaxSpeed = 100;
             Mass = 0.1;
 
             // Set the initial position of the Robot

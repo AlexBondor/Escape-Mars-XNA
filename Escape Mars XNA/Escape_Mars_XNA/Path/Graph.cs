@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 
 namespace Escape_Mars_XNA.Path
@@ -95,8 +94,6 @@ namespace Escape_Mars_XNA.Path
                     index++;
                 }
             }
-
-            var test = Vector2Helper.Distance(Nodes[0].Position, Nodes[1].Position);
         }
 
         // Creates the links from source to destination by adding edges

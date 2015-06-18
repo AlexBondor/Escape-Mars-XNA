@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.Design;
-using System.Security.Policy;
-using Escape_Mars_XNA.Entity;
+﻿using Escape_Mars_XNA.Entity;
+using Escape_Mars_XNA.Goal.Composite;
 using Escape_Mars_XNA.Helper;
 using Escape_Mars_XNA.Path;
 using Escape_Mars_XNA.Steering;
@@ -30,6 +29,8 @@ namespace Escape_Mars_XNA.Character
             SteeringBehaviour = new SteeringBehaviours(this);
 
             PathPlanning = new PathPlanning(this, World.MapGraph);
+
+            Brain = new GoalThink(this);
         }
 
         // Compute the new values for the object vecotr

@@ -77,6 +77,11 @@
     <Compile Include="Character\Sneaky.cs" />
     <Compile Include="Entity\BaseGameEntity.cs" />
     <Compile Include="Entity\MovingEntity.cs" />
+    <Compile Include="Goal\Goal.cs" />
+    <Compile Include="Goal\GoalComposite.cs" />
+    <Compile Include="Goal\GoalExplore.cs" />
+    <Compile Include="Goal\GoalFollowPath.cs" />
+    <Compile Include="Goal\GoalSeekToPosition.cs" />
     <Compile Include="Helper\AnimatedSprite.cs" />
     <Compile Include="Helper\Vector2Helper.cs" />
     <Compile Include="Path\AStar.cs" />
@@ -84,8 +89,8 @@
     <Compile Include="Path\Graph.cs" />
     <Compile Include="Path\GraphNode.cs" />
     <Compile Include="Path\PathPlanning.cs" />
-    <Compile Include="Path\PriorityQueue.cs" />
-    <Compile Include="Path\PriorityQueueElement.cs" />
+    <Compile Include="Helper\PriorityQueue.cs" />
+    <Compile Include="Helper\PriorityQueueElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="EscapeMars.cs" />
