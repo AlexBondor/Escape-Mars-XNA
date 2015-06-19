@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Security.AccessControl;
 using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +18,7 @@ namespace Escape_Mars_XNA
 
         // 
         private bool _gKeyPressed;
+        private bool _hKeyPressed;
 
         public GraphicsDeviceManager Graphics { get; private set; }
         SpriteBatch _spriteBatch;
@@ -105,6 +109,23 @@ namespace Escape_Mars_XNA
             if (keyState.IsKeyUp(Keys.G) && _gKeyPressed)
             {
                 _gKeyPressed = false;
+            }
+
+
+            /**
+             * Display or not the graph
+             */
+            if (keyState.IsKeyDown(Keys.H) && !_hKeyPressed)
+            {
+                _hKeyPressed = true;
+
+                _world.HealthPacksCount = 0;
+                _world.Objects.Remove(_world.Objects.First(i => i.ItemType == EntityFeature.Itm.HealthPack));
+            }
+
+            if (keyState.IsKeyUp(Keys.H) && _hKeyPressed)
+            {
+                _hKeyPressed = false;
             }
 
             base.Update(gameTime);

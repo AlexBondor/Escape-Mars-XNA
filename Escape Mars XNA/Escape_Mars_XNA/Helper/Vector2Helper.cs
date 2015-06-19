@@ -114,5 +114,12 @@ namespace Escape_Mars_XNA.Helper
             return ySeparation * ySeparation + xSeparation * xSeparation;
         
         }
+
+        // Return a clamped value of "value" taking into account the
+        // min and max
+        public static double Clamp(double value, double min, double max)
+        {
+            return value < min ? min : value > max ? max : value;
+        }
     }
 }

@@ -47,21 +47,11 @@ namespace Escape_Mars_XNA.Path
                 return false;
             }
 
-            _aStar.Search(startNode, endNode);
+            if (!_aStar.Search(startNode, endNode)) return false;
 
-            try
-            {
-                _path = _aStar.GetPath();
-                if (_path.Count == 0)
-                {
-                    return false;
-                }
-                _intermediatePos = Vector2Helper.ScalarAdd(_path[0].To.Position, 16);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            _path = _aStar.GetPath();
+            _intermediatePos = Vector2Helper.ScalarAdd(_path[0].To.Position, 16);
+
             return true;
         }
 
@@ -88,7 +78,34 @@ namespace Escape_Mars_XNA.Path
 
         public double GetCostToClosestItem(EntityFeature.Itm itemType)
         {
-            var itemTypeNodes = _owner.World.GetItemsOfType(itemType);
+            var itemTypePositions = _owner.World.GetItemTypePositions(itemType);
+
+            var closest = double.MaxValue;
+            var closestPos = new Vector2(float.MaxValue, float.MaxValue);
+
+            foreach (var itemPosition in itemTypePositions)
+            {
+                var dist = Vector2Helper.DistanceSq(_owner.Position, itemPosition);
+                if (dist < closest)
+                {
+                    closest = dist;
+                    closestPos = itemPosition;
+                }
+            }
+
+            if (Math.Abs(closestPos.X - float.MaxValue) < float.Epsilon)
+            {
+                return -1;
+            }
+
+            var startNode = _navGraph.GetNodeByPosition(_owner.Position);
+            var endNode = _navGraph.GetNodeByPosition(closestPos);
+
+            if (_aStar.Search(startNode, endNode))
+            {
+                return _aStar.GetCost();
+            }
+            return -1;
         }
     }
 }

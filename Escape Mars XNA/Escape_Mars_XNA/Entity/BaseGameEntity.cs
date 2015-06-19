@@ -14,7 +14,7 @@ namespace Escape_Mars_XNA.Entity
 
         // Every character starts with default health value of 100
         public int Health = 100;
-
+                             
         // A vector for position
         public Vector2 Position;
 

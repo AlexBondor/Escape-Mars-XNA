@@ -33,15 +33,15 @@ namespace Escape_Mars_XNA.Path
             Graph = graph;
         }
 
-        public void Search(GraphNode source, GraphNode target)
+        public bool Search(GraphNode source, GraphNode target)
         {
             if (source == null || target == null)
             {
-                return;
+                return false;
             }
             if (!source.Active || !target.Active)
             {
-                return;
+                return false;
             }
             _source = source;
             _target = target;
@@ -64,7 +64,7 @@ namespace Escape_Mars_XNA.Path
                 
 
                 // If target found then return
-                if (ncnIdx == _target.Index) return;
+                if (ncnIdx == _target.Index) return true;
 
                 foreach (var edge in ncnNode.Edges)
                 {
@@ -105,6 +105,7 @@ namespace Escape_Mars_XNA.Path
                     }
                 }
             }
+            return false;
         }
 
         private void InitializeStructures()

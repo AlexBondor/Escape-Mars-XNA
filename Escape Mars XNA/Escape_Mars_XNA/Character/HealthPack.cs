@@ -5,25 +5,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Escape_Mars_XNA.Character
 {
-    class Rocket : BaseGameEntity
+    class HealthPack:BaseGameEntity
     {
-        public Rocket(Vector2 position)
+        public HealthPack(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.Rocket;
+            ItemType = EntityFeature.Itm.HealthPack;
 
-            // Sprite dimensions
-            Width = 128;
-            Height = 128;
+            Width = 16;
+            Height = 16;
 
             Position = position;
 
             // Set sprite no. of columns
-            AnimatedSprite = new AnimatedSprite(1, 5) {Animate = false};
+            AnimatedSprite = new AnimatedSprite(1, 5) { Animate = false };
         }
 
         public override void Update(double elapsedTime)
         {
-            // Update sprite
             AnimatedSprite.Update(elapsedTime);
         }
 
@@ -31,7 +29,7 @@ namespace Escape_Mars_XNA.Character
         {
             spriteBatch.Draw(
                 AnimatedSprite.Texture,
-                new Rectangle((int)Position.X - Width / 2, (int)Position.Y - Height / 2, Width, Height),
+                new Rectangle((int)Position.X + Width / 2, (int)Position.Y + Height / 2, Width, Height),
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
                 ); 

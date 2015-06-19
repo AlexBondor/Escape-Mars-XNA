@@ -1,15 +1,26 @@
-﻿namespace Escape_Mars_XNA.Goal.Composite
+﻿using Escape_Mars_XNA.Entity;
+
+namespace Escape_Mars_XNA.Goal.Composite
 {
     class GoalExplore:GoalComposite
     {
+        public GoalExplore(MovingEntity owner)
+        {
+            Owner = owner;
+        }
+
         public override void Activate()
         {
-            throw new System.NotImplementedException();
+            Status = Sts.Active;
         }
 
         public override Sts Process()
         {
-            throw new System.NotImplementedException();
+            ActivateIfInactive();
+
+            Owner.Behaviour = MovingEntity.Bvr.Explore;
+
+            return Status;
         }
 
         public override void Terminate()

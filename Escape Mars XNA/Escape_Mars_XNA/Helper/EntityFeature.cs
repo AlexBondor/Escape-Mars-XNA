@@ -4,6 +4,11 @@ namespace Escape_Mars_XNA.Helper
 {
     static class EntityFeature
     {
+        public const double MaxDistance = 500.0;
+        public const double MinDistance = 50.0;
+        public const int MaxAmmo = 30;
+        public const int MaxHealth = 30;
+
         public enum Itm
         {
             RocketPart = 0,
@@ -14,7 +19,8 @@ namespace Escape_Mars_XNA.Helper
             Sneaky = 5,
             Attacker = 6,
             Dumby = 7,
-            NotSet = 8
+            Laika = 8,
+            NotSet = 9
         }
 
         // Returns a value between 0 and 1 based on the
@@ -22,7 +28,7 @@ namespace Escape_Mars_XNA.Helper
         // the rating
         public static double Health(MovingEntity entity)
         {
-            return entity.Health;
+            return (double)entity.Health / MaxHealth;
         }
 
         // Returns a value between 0 and 1 based on the
@@ -32,7 +38,23 @@ namespace Escape_Mars_XNA.Helper
         // this method is called, the value returned is 1
         public static double DistanceToItem(MovingEntity entity, Itm itemType)
         {
-            var distanceToItem = entity.PathPlanning.GetCostToClosestItem(itemType);       
+            // Determine the distance to closest instance of the item type
+            var distanceToItem = entity.PathPlanning.GetCostToClosestItem(itemType);
+
+            // If the previous method returns a negative value then there
+            // is no item of the specified type present in the game world
+            // at this time
+            if (distanceToItem < 0)
+            {
+                return 1;
+            }
+
+            // There values represent the cuttoffs. Any distance over
+            // MaxDistance results in value of 1, and value below MinDistance
+            // results in a value of 1
+            var clamped = Vector2Helper.Clamp(distanceToItem, MinDistance, MaxDistance);
+
+            return clamped / MaxDistance;
         }
 
         // Returns a value between 0 and 1 based on how much
@@ -41,7 +63,7 @@ namespace Escape_Mars_XNA.Helper
         // max amount, the higher the score
         public static double WeaponStrength(MovingEntity entity)
         {
-            
+            return (double)entity.Ammo / MaxAmmo;
         }
     }
 }

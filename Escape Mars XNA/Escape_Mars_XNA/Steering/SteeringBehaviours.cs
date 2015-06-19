@@ -187,55 +187,31 @@ namespace Escape_Mars_XNA.Steering
             switch (quadrant)
             {
                 case 0:
-                    return ValidExploringNode(
+                    return map.RandomValidNode(
                         0,
                         map.Rows % 2 == 0 ? (map.Rows - 1) / 2 : map.Rows / 2,
                         0,
                         map.Cols % 2 == 0 ? (map.Cols - 1) / 2 : map.Cols / 2);
                 case 1:
-                    return ValidExploringNode(
+                    return map.RandomValidNode(
                         0,
                         map.Rows % 2 == 0 ? (map.Rows - 1) / 2 : map.Rows / 2,
                         map.Cols % 2 == 0 ? (map.Cols - 1) / 2 : map.Cols / 2,
                         map.Cols - 1);
                 case 2:
-                    return ValidExploringNode(
+                    return map.RandomValidNode(
                         map.Rows % 2 == 0 ? (map.Rows - 1) / 2 : map.Rows / 2,
                         map.Rows - 1,
                         map.Cols % 2 == 0 ? (map.Cols - 1) / 2 : map.Cols / 2,
                         map.Cols - 1);
                 case 3:
-                    return ValidExploringNode(
+                    return map.RandomValidNode(
                         map.Rows % 2 == 0 ? (map.Rows - 1) / 2 : map.Rows / 2,
                         map.Rows - 1,
                         0,
                         map.Cols % 2 == 0 ? (map.Cols - 1) / 2 : map.Cols / 2);
             }
             return _owner.Position;
-        }
-
-        private Vector2 ValidExploringNode(int rowLeft, int rowRight, int colLeft, int colRight)
-        {
-            var nodes = _owner.World.MapGraph.Nodes.Where(n => n.Active).ToArray();
-
-            var rdn = new Random();
-
-            GraphNode temp;
-
-            while (true)
-            {
-                var row = rdn.Next(rowLeft, rowRight);
-                var col = rdn.Next(colLeft, colRight);
-                try
-                {
-                    temp = nodes.First(n => n.Row == row && n.Col == col);
-                    return temp.Position;
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            }
         }
     }
 }

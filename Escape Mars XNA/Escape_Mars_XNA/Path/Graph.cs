@@ -201,5 +201,27 @@ namespace Escape_Mars_XNA.Path
         {
             return Nodes.Where(n => !n.Active).Where(node => node.Col != 0 && node.Col != Cols - 1 && node.Row != 0 && node.Row != Rows - 1).ToArray();
         }
+
+        public Vector2 RandomValidNode(int rowLeft, int rowRight, int colLeft, int colRight)
+        {
+            var nodes = Nodes.Where(n => n.Active).ToArray();
+
+            var rdn = new Random();
+
+            while (true)
+            {
+                var row = rdn.Next(rowLeft, rowRight);
+                var col = rdn.Next(colLeft, colRight);
+                try
+                {
+                    var temp = nodes.First(n => n.Row == row && n.Col == col);
+                    return temp.Position;
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+        }
     }
 }

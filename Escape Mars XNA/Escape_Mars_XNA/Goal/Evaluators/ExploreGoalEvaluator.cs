@@ -6,12 +6,14 @@ namespace Escape_Mars_XNA.Goal.Evaluators
     {
         public override double CalculateDesirability(MovingEntity owner)
         {
-            throw new System.NotImplementedException();
+            const double desirability = 0.05;
+
+            return desirability;
         }
 
         public override void SetGoal(MovingEntity owner)
         {
-            owner.Brain.AddGoalExplore();
+            owner.Brain.AddExploreGoal();
         }
     }
 }

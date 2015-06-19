@@ -12,16 +12,32 @@ namespace Escape_Mars_XNA.Goal.Composite
         public GoalThink(MovingEntity owner)
         {
             Owner = owner;
+
+            Evaluators.Add(new ExploreGoalEvaluator());
+            Evaluators.Add(new AttackEnemyEvaluator());
+            Evaluators.Add(new GetHealthPackEvaluator());
+            Evaluators.Add(new GetAmmoGoalEvaluator());
+            Evaluators.Add(new GetRocketPartEvaluator());
         }
 
         public override void Activate()
         {
-            throw new NotImplementedException();
+            Status = Sts.Active;
+            Arbitrate();
         }
 
         public override Sts Process()
         {
-            throw new NotImplementedException();
+            ActivateIfInactive();
+
+            var subgoalStatus = ProcessSubgoals();
+
+            if (subgoalStatus == Sts.Completed || subgoalStatus == Sts.Failed)
+            {
+                Status = Sts.Inactive;
+            }
+
+            return Status;
         }
 
         public override void Terminate()
@@ -51,17 +67,27 @@ namespace Escape_Mars_XNA.Goal.Composite
             }
         }
 
-        public void AddGoalExplore()
+        public void AddExploreGoal()
+        {
+            AddSubgoal(new GoalExplore(Owner));   
+        }
+
+        public void AddGetHealthPackGoal()
+        {
+   
+        }
+
+        public void AddGetRocketPartGoal()
         {
             
         }
 
-        public void AddGoalGetItem()
+        public void AddGetAmmoGoal()
         {
             
         }
 
-        public void AddGoalAttackEnemy()
+        public void AddAttackEnemyGoal()
         {
             
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Escape_Mars_XNA.Character;
@@ -22,9 +21,17 @@ namespace Escape_Mars_XNA
 
         private static World _instance;
 
+        private static ContentManager _contentManager;
+
         public MovingEntity Robot;
 
         public List<BaseGameEntity> Objects { get; private set; }
+
+        public int HealthPacksCount = 0;
+
+        public int AmmoPacksCount = 0;
+
+        public int RocketPartsCount = 0;
 
         private World()
         {
@@ -54,11 +61,16 @@ namespace Escape_Mars_XNA
 
             var rocket = new Rocket(new Vector2(400, 300));
             Objects.Add(rocket);
+
+            var laika = new Laika(new Vector2(500, 500));
+            Objects.Add(laika);
         }
 
         // Load sprites for every object in scene
         public void Load(ContentManager contentManager)
         {
+            _contentManager = contentManager;
+
             foreach (var item in Objects)
             {
                 var file = item.GetType().Name;
@@ -112,10 +124,29 @@ namespace Escape_Mars_XNA
         // Update all world objects
         public void Update(GameTime gameTime)
         {
+            if (HealthPacksCount == 0)
+            {
+                AddHealthPack();
+            }
+
             foreach (var item in Objects)
             {
                 item.Update(gameTime.ElapsedGameTime.TotalSeconds);
             }
+        }
+
+        private void AddHealthPack()
+        {
+            var position = MapGraph.RandomValidNode(0, MapGraph.Rows - 1, 0, MapGraph.Cols - 1);
+
+            var healthPack = new HealthPack(position);
+
+            var file = healthPack.GetType().Name;
+            healthPack.AnimatedSprite.Texture = _contentManager.Load<Texture2D>(file);
+
+            Objects.Add(healthPack);
+
+            HealthPacksCount ++;
         }
 
         // Draw all world objects
@@ -183,10 +214,10 @@ namespace Escape_Mars_XNA
             }
         }
 
-        public List<GraphNode> GetItemsOfType(EntityFeature.Itm itemType)
+        public List<Vector2> GetItemTypePositions(EntityFeature.Itm itemType)
         {
             var items = Objects.Where(o => o.ItemType == itemType);
-            return items.Select(item => MapGraph.GetNodeByPosition(item.Position)).ToList();
+            return items.Select(item => item.Position).ToList();
         }
     }
 }

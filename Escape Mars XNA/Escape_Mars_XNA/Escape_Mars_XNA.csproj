@@ -72,17 +72,26 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Character\HealthPack.cs" />
+    <Compile Include="Character\Laika.cs" />
     <Compile Include="Character\Robot.cs" />
     <Compile Include="Character\Rocket.cs" />
     <Compile Include="Character\Sneaky.cs" />
     <Compile Include="Entity\BaseGameEntity.cs" />
     <Compile Include="Entity\MovingEntity.cs" />
+    <Compile Include="Goal\Evaluators\GetAmmoGoalEvaluator.cs" />
+    <Compile Include="Goal\Evaluators\AttackEnemyEvaluator.cs" />
+    <Compile Include="Goal\Evaluators\ExploreGoalEvaluator.cs" />
+    <Compile Include="Goal\Evaluators\GetHealthPackEvaluator.cs" />
+    <Compile Include="Goal\Evaluators\GetRocketPartEvaluator.cs" />
+    <Compile Include="Goal\Evaluators\GoalEvaluator.cs" />
     <Compile Include="Goal\Goal.cs" />
     <Compile Include="Goal\GoalComposite.cs" />
-    <Compile Include="Goal\GoalExplore.cs" />
-    <Compile Include="Goal\GoalFollowPath.cs" />
-    <Compile Include="Goal\GoalSeekToPosition.cs" />
+    <Compile Include="Goal\Composite\GoalExplore.cs" />
+    <Compile Include="Goal\Atomic\GoalSeekToPosition.cs" />
+    <Compile Include="Goal\Composite\GoalThink.cs" />
     <Compile Include="Helper\AnimatedSprite.cs" />
+    <Compile Include="Helper\EntityFeature.cs" />
     <Compile Include="Helper\Vector2Helper.cs" />
     <Compile Include="Path\AStar.cs" />
     <Compile Include="Path\GraphEdge.cs" />
@@ -102,6 +111,7 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
+    <Content Include="ItemsMap.txt" />
     <Content Include="Map.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -73,6 +73,24 @@
       <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Rocket.xnb</Output>
       <Time>2015-06-17T18:55:52.0799392+02:00</Time>
     </Item>
+    <Item>
+      <Source>HealthPack.png</Source>
+      <Name>HealthPack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\HealthPack.xnb</Output>
+      <Time>2015-06-19T16:09:47.1908577+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Laika.png</Source>
+      <Name>Laika</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Laika.xnb</Output>
+      <Time>2015-06-19T16:50:11.5112872+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{BB3BBA62-D005-4086-A1AC-07A73B4896E7}</ContentProjectGUID>

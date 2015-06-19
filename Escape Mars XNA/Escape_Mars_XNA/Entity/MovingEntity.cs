@@ -8,6 +8,9 @@ namespace Escape_Mars_XNA.Entity
 {
     abstract class MovingEntity : BaseGameEntity
     {
+        // Every character starts with full Ammo
+        public int Ammo = EntityFeature.MaxAmmo;
+
         public enum Bvr
         {
             Seek = 0,
@@ -48,8 +51,13 @@ namespace Escape_Mars_XNA.Entity
         // steering behaviours
         public Vector2 SteeringPosition { get; set; }
 
-        // The enemy is used to Hide/Flee from..
+        // The enemy is used to Hide/Flee from.. or Attack
         public MovingEntity Enemy { get; set; }
+
+        public bool HasEnemy { get; set; }
+
+        public bool CanPickUp { get; set; }
+
         // Used by the Hide function to find hiding spots
         public GraphNode[] Obstacles { get; set; }
         public SteeringBehaviours.Dcl Deceleration { get; set; }

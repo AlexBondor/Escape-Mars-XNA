@@ -1,5 +1,4 @@
-﻿using System;
-using Escape_Mars_XNA.Entity;
+﻿using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
 using Escape_Mars_XNA.Path;
 using Escape_Mars_XNA.Steering;
@@ -12,6 +11,8 @@ namespace Escape_Mars_XNA.Character
     {
         public Sneaky(Vector2 position)
         {
+            ItemType = EntityFeature.Itm.Sneaky;
+
             // Sprite dimensions
             Width = 64;
             Height = 64;
