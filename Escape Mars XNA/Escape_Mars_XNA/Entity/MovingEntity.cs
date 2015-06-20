@@ -75,6 +75,8 @@ namespace Escape_Mars_XNA.Entity
             PathPlanning.CreatePath(Position, to);
         }
 
+        public abstract void UpdateGraphDrawing();
+
         // Update the path planning
         protected void UpdatePathPlanning()
         {
@@ -86,7 +88,7 @@ namespace Escape_Mars_XNA.Entity
         protected void UpdateSprite(double elapsedTime)
         {
             var prevDir = Direction;
-            //Console.WriteLine(Direction + " --- " + Heading);
+
             if (Heading.X > 0 && Heading.Y < 0.45 && Heading.Y > -0.45 && Direction != AnimatedSprite.Direction.Right)
             {
                 Direction = AnimatedSprite.Direction.Right;
@@ -173,6 +175,11 @@ namespace Escape_Mars_XNA.Entity
 
             // Treat the screan as a toroid
             Position = Vector2Helper.WrapAround(Position);
+        }
+
+        public void RemoveItemFromPosition(Vector2 position)
+        {
+            World.RemoveItemFromPosition(position);
         }
     }
 }

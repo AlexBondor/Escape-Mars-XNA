@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Escape_Mars_XNA.Character;
 using Escape_Mars_XNA.Entity;
+using Escape_Mars_XNA.Goal.Composite;
 using Escape_Mars_XNA.Helper;
+using Escape_Mars_XNA.Objects;
 using Escape_Mars_XNA.Path;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -32,6 +33,7 @@ namespace Escape_Mars_XNA
         public int AmmoPacksCount = 0;
 
         public int RocketPartsCount = 0;
+        private List<BaseGameEntity> _objectsToBeRemoved = new List<BaseGameEntity>();
 
         private World()
         {
@@ -49,21 +51,32 @@ namespace Escape_Mars_XNA
         // Creates the world objects
         public void Create()
         {
-            var node = MapGraph.GetNodeByRowCol(1, 1);
+            //var sneaky = new Sneaky(new Vector2(200, 200));
+            //Objects.Add(sneaky);
 
-            var robot = new Robot(new Vector2(node.Position.X + node.Width/2, node.Position.Y + node.Height/2));
+            var node = MapGraph.GetNodeByRowCol(3, 1);
+            var computer = new Computer(node.Position);
+            Objects.Add(computer);
 
+            node = MapGraph.GetNodeByRowCol(18, 11);
+            var toolbox = new Toolbox(node.Position);
+            Objects.Add(toolbox);
+
+            node = MapGraph.GetNodeByRowCol(1, 17);
+            var jewel = new Jewel(node.Position);
+            Objects.Add(jewel);
+
+            node = MapGraph.GetNodeByRowCol(16, 1);
+            var laika = new Laika(Vector2Helper.ScalarAdd(node.Position, node.Width / 2));
+            Objects.Add(laika);
+
+            node = MapGraph.GetNodeByRowCol(1, 1);
+            var robot = new Robot(Vector2Helper.ScalarAdd(node.Position, node.Width / 2));
             Robot = robot;
             Objects.Add(robot);
 
-            var sneaky = new Sneaky(new Vector2(200, 200));
-            Objects.Add(sneaky);
-
             var rocket = new Rocket(new Vector2(400, 300));
             Objects.Add(rocket);
-
-            var laika = new Laika(new Vector2(500, 500));
-            Objects.Add(laika);
         }
 
         // Load sprites for every object in scene
@@ -74,6 +87,7 @@ namespace Escape_Mars_XNA
             foreach (var item in Objects)
             {
                 var file = item.GetType().Name;
+                item.AnimatedSprite.Font = contentManager.Load<SpriteFont>("Font");
                 item.AnimatedSprite.Texture = contentManager.Load<Texture2D>(file);
             }
 
@@ -129,12 +143,18 @@ namespace Escape_Mars_XNA
                 AddHealthPack();
             }
 
+            if (AmmoPacksCount == 0)
+            {
+                AddAmmoPack();
+            }
+
             foreach (var item in Objects)
             {
                 item.Update(gameTime.ElapsedGameTime.TotalSeconds);
             }
-        }
 
+            RemoveAnyUnwantedObjects();
+        }
         private void AddHealthPack()
         {
             var position = MapGraph.RandomValidNode(0, MapGraph.Rows - 1, 0, MapGraph.Cols - 1);
@@ -146,8 +166,55 @@ namespace Escape_Mars_XNA
 
             Objects.Add(healthPack);
 
-            HealthPacksCount ++;
+            HealthPacksCount++;
         }
+
+        private void AddAmmoPack()
+        {
+            var position = MapGraph.RandomValidNode(0, MapGraph.Rows - 1, 0, MapGraph.Cols - 1);
+
+            var ammoPack = new Ammo(position);
+
+            var file = ammoPack.GetType().Name;
+            ammoPack.AnimatedSprite.Texture = _contentManager.Load<Texture2D>(file);
+
+            Objects.Add(ammoPack);
+
+            AmmoPacksCount++;
+        }
+
+        private void RemoveAnyUnwantedObjects()
+        {
+            if (_objectsToBeRemoved.Count == 0)
+            {
+                return;
+            }
+            foreach (var item in _objectsToBeRemoved)
+            {
+                Objects.Remove(item);
+            }
+            _objectsToBeRemoved.Clear();
+        }
+
+        public void RemoveItemFromPosition(Vector2 position)
+        {
+            var item = Objects.First(i => Vector2Helper.DistanceSq(i.Position, position) < 1);
+
+            if (item == null) return;
+           
+            _objectsToBeRemoved.Add(item);
+
+            switch (item.ItemType)
+            {
+                case EntityFeature.Itm.HealthPack:
+                    HealthPacksCount --;
+                    break;
+                case EntityFeature.Itm.Ammo:
+                    AmmoPacksCount --;
+                    break;
+            }
+        }
+       
 
         // Draw all world objects
         public void Draw(SpriteBatch spriteBatch)
@@ -184,10 +251,10 @@ namespace Escape_Mars_XNA
                 edge.DisplayGraph = displayGraph;
             }
         }
-        
-        public void SearchTo(Vector2 to)
+
+        public void RobotMoveTo(Vector2 to)
         {
-            Robot.CreatePathTo(to);
+            Robot.Brain.AddSubgoal(new GoalFollowPath(Robot, to));
         }
 
         // Update the colors of the graph according the

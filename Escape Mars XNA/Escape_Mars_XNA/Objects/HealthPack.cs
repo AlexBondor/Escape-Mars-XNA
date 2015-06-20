@@ -3,7 +3,7 @@ using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escape_Mars_XNA.Character
+namespace Escape_Mars_XNA.Objects
 {
     class HealthPack:BaseGameEntity
     {

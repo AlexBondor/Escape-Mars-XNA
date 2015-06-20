@@ -12,6 +12,7 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public GoalFollowPath(MovingEntity owner, Vector2 steeringPosition)
         {
+            Type = Typ.FollowPath;
             Owner = owner;
             _steeringPosition = steeringPosition;
         }
@@ -20,11 +21,17 @@ namespace Escape_Mars_XNA.Goal.Composite
         {
             Status = Sts.Active;
 
+            if (Subgoals.Count != 0)
+            {
+                RemoveAllSubgoals();
+            }
+
             var succeded = Owner.PathPlanning.CreatePath(Owner.Position, _steeringPosition);
 
             if (!succeded)
             {
                 Status = Sts.Failed;
+                return;
             }
 
             var aStar = Owner.PathPlanning.GetAStar();
@@ -44,11 +51,16 @@ namespace Escape_Mars_XNA.Goal.Composite
             // Otherwise continue
             ActivateIfInactive();
 
-            var subgoalStatus = ProcessSubgoals();
+            if (Status == Sts.Halted)
+            {
+                Activate();
+            }
 
+            var subgoalStatus = ProcessSubgoals();
+            
             if (subgoalStatus == Sts.Completed || subgoalStatus == Sts.Failed)
             {
-                Status = Sts.Inactive;
+                Status = Sts.Completed;
             }
 
             return Status;
@@ -56,7 +68,6 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public override void Terminate()
         {
-            Owner.Behaviour = MovingEntity.Bvr.Idle;
         }
     }
 }

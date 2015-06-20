@@ -8,6 +8,7 @@ namespace Escape_Mars_XNA.Helper
         public const double MinDistance = 50.0;
         public const int MaxAmmo = 30;
         public const int MaxHealth = 30;
+        public const int HealthPackPoints = 25;
 
         public enum Itm
         {

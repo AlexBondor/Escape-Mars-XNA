@@ -1,4 +1,5 @@
-﻿using Escape_Mars_XNA.Entity;
+﻿using System;
+using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 
@@ -10,6 +11,7 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public GoalGetHealthPack(MovingEntity owner)
         {
+            Type = Typ.GetHealthPack;
             Owner = owner;
         }
 
@@ -31,6 +33,11 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public override Sts Process()
         {
+            if (Status == Sts.Halted)
+            {
+                Activate();
+            }
+
             // Otherwise continue
             ActivateIfInactive();
 
@@ -46,7 +53,8 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public override void Terminate()
         {
-            Owner.Behaviour = MovingEntity.Bvr.Idle;
+            Owner.Health += EntityFeature.HealthPackPoints;
+            Owner.RemoveItemFromPosition(_healthPackPosition);
         }
     }
 }

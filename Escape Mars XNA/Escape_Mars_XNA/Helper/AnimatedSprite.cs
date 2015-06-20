@@ -4,6 +4,8 @@ namespace Escape_Mars_XNA.Helper
 {
     public class AnimatedSprite
     {
+        public SpriteFont Font { get; set; }
+
         public bool Animate { get; set; }
 
         public enum Direction

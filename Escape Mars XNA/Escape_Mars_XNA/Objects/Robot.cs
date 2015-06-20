@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Goal.Composite;
 using Escape_Mars_XNA.Helper;
@@ -7,7 +7,7 @@ using Escape_Mars_XNA.Steering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escape_Mars_XNA.Character
+namespace Escape_Mars_XNA.Objects
 {
     class Robot : MovingEntity
     {
@@ -45,16 +45,17 @@ namespace Escape_Mars_XNA.Character
         {
             UpdatePathPlanning();
 
-            World.UpdateGraph(PathPlanning.GetAStar());
-
             Brain.Process();
-
-            //Console.WriteLine(Brain.Subgoals.Count);
-
+            
             UpdatePhysics(elapsedTime);
             
             // Update sprite 
             UpdateSprite(elapsedTime);
+        }
+
+        public override void UpdateGraphDrawing()
+        {
+            World.UpdateGraph(PathPlanning.GetAStar());
         }
 
         // Draw the required portion of the sprite
@@ -65,7 +66,37 @@ namespace Escape_Mars_XNA.Character
                 new Rectangle((int) Position.X - Width / 2, (int) Position.Y - Height, Width, Height),
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
-                );    
+                );
+
+            DrawBrainStack(spriteBatch);
+        }
+
+        private void DrawBrainStack(SpriteBatch spriteBatch)
+        {
+            var startPos = new Vector2(Position.X + Width / 2, Position.Y - Height / 2 - 20);
+
+            DrawSubgoalStack(spriteBatch, Brain, startPos, 0);
+            
+        }
+
+        private float DrawSubgoalStack(SpriteBatch spriteBatch, Goal.Goal goal, Vector2 position, int level)
+        {
+            var spaces = "";
+            for (var i = 0; i < level; i++)
+            {
+                spaces = spaces.Insert(spaces.Length, "  ");
+            }
+
+            spriteBatch.DrawString(AnimatedSprite.Font, spaces + goal.Type, position, Color.White);
+
+            var nextPos = position;
+            nextPos.Y += 10;
+
+            foreach (var subgoal in goal.Subgoals.Reverse())
+            {
+                nextPos.Y = DrawSubgoalStack(spriteBatch, subgoal, nextPos, level + 1);
+            }
+            return nextPos.Y;
         }
     }
 }

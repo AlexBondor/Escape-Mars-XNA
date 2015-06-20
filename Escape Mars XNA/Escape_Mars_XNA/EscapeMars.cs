@@ -17,6 +17,7 @@ namespace Escape_Mars_XNA
         // 
         private bool _gKeyPressed;
         private bool _hKeyPressed;
+        private bool _leftClick;
 
         public GraphicsDeviceManager Graphics { get; private set; }
         SpriteBatch _spriteBatch;
@@ -80,9 +81,16 @@ namespace Escape_Mars_XNA
 
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
+                _leftClick = true;
+            }
+
+            if (mouseState.LeftButton == ButtonState.Released && _leftClick)
+            {
+                _leftClick = false;
+
                 var seekMouse = new Vector2(mouseState.X, mouseState.Y);
 
-                _world.SearchTo(seekMouse);
+                _world.RobotMoveTo(seekMouse);
             }
 
             //if (mouseState.RightButton == ButtonState.Pressed)
@@ -117,11 +125,9 @@ namespace Escape_Mars_XNA
             {
                 _hKeyPressed = true;
 
-                //_world.HealthPacksCount = 0;
-                //_world.Objects.Remove(_world.Objects.First(i => i.ItemType == EntityFeature.Itm.HealthPack));
                 _world.Robot.Health --;
                 _world.Robot.Brain.Arbitrate();
-                //Console.WriteLine(_world.Robot.Health);
+                Console.WriteLine(_world.Robot.Health);
             }
 
             if (keyState.IsKeyUp(Keys.H) && _hKeyPressed)

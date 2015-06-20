@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Microsoft.Xna.Framework;
 
 namespace Escape_Mars_XNA.Path
@@ -204,6 +205,9 @@ namespace Escape_Mars_XNA.Path
 
         public Vector2 RandomValidNode(int rowLeft, int rowRight, int colLeft, int colRight)
         {
+            // So that consecutive calls won't return the same node
+            Thread.Sleep(10);
+
             var nodes = Nodes.Where(n => n.Active).ToArray();
 
             var rdn = new Random();

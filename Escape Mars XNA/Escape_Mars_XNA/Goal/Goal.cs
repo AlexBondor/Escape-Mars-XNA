@@ -1,15 +1,20 @@
-﻿using Escape_Mars_XNA.Entity;
+﻿using System.Collections.Generic;
+using Escape_Mars_XNA.Entity;
 
 namespace Escape_Mars_XNA.Goal
 {
     abstract class Goal
     {
+        public Stack<Goal> Subgoals = new Stack<Goal>();
+
         public enum Typ
         {
             Think = 0,
-            TraverseEdge = 1,
+            SeekToPosition = 1,
             FollowPath = 2,
-            GetItem = 3
+            GetHealthPack = 3,
+            Explore = 4,
+            NotSet = 5
         }
 
         public enum Sts
@@ -17,14 +22,15 @@ namespace Escape_Mars_XNA.Goal
             Inactive = 0,
             Active = 1,
             Completed = 2,
-            Failed = 3
+            Failed = 3,
+            Halted = 4
         }
 
         protected MovingEntity Owner;
 
         public Sts Status { get; set; }
 
-        public Typ Type { get; set; }
+        public Typ Type { get; protected set; }
 
         public abstract void Activate();
 
@@ -50,11 +56,6 @@ namespace Escape_Mars_XNA.Goal
         public bool HasFailed()
         {
             return Status == Sts.Failed;
-        }
-
-        public Typ GetGoalType()
-        {
-            return Type;
         }
 
         protected void ActivateIfInactive()

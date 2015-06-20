@@ -6,6 +6,12 @@ namespace Escape_Mars_XNA.Goal.Evaluators
 {
     class GetAmmoGoalEvaluator:GoalEvaluator
     {
+        public GetAmmoGoalEvaluator()
+        {
+            Type = Evl.GetAmmo;
+            SingleGoalInstance = true;
+        }
+
         public override double CalculateDesirability(MovingEntity owner)
         {
             var distance = EntityFeature.DistanceToItem(owner, EntityFeature.Itm.Ammo);

@@ -51,6 +51,7 @@ namespace Escape_Mars_XNA.Path
 
             _path = _aStar.GetPath();
             _intermediatePos = Vector2Helper.ScalarAdd(_path[0].To.Position, 16);
+            _owner.UpdateGraphDrawing();
 
             return true;
         }

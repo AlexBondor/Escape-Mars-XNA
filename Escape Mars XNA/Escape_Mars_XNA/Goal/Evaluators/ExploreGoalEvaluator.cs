@@ -4,6 +4,12 @@ namespace Escape_Mars_XNA.Goal.Evaluators
 {
     class ExploreGoalEvaluator:GoalEvaluator
     {
+        public ExploreGoalEvaluator()
+        {
+            Type = Evl.Explore;
+            SingleGoalInstance = true;
+        }
+
         public override double CalculateDesirability(MovingEntity owner)
         {
             const double desirability = 0.05;

@@ -15,3 +15,8 @@ D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Ma
 D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Rocket.xnb
 D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\HealthPack.xnb
 D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Laika.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Font.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Computer.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Jewel.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Toolbox.xnb
+D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Ammo.xnb

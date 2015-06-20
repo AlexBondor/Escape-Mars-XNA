@@ -6,6 +6,12 @@ namespace Escape_Mars_XNA.Goal.Evaluators
 {
     class GetHealthPackEvaluator : GoalEvaluator
     {
+        public GetHealthPackEvaluator()
+        {
+            Type = Evl.GetHealthPack;
+            SingleGoalInstance = true;
+        }
+
         public override double CalculateDesirability(MovingEntity owner)
         {
             // First grab the distance tot the closest instance of

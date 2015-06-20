@@ -72,11 +72,14 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Character\HealthPack.cs" />
-    <Compile Include="Character\Laika.cs" />
-    <Compile Include="Character\Robot.cs" />
-    <Compile Include="Character\Rocket.cs" />
-    <Compile Include="Character\Sneaky.cs" />
+    <Compile Include="Objects\Ammo.cs" />
+    <Compile Include="Objects\Computer.cs" />
+    <Compile Include="Objects\HealthPack.cs" />
+    <Compile Include="Objects\Jewel.cs" />
+    <Compile Include="Objects\Laika.cs" />
+    <Compile Include="Objects\Robot.cs" />
+    <Compile Include="Objects\Rocket.cs" />
+    <Compile Include="Objects\Sneaky.cs" />
     <Compile Include="Entity\BaseGameEntity.cs" />
     <Compile Include="Entity\MovingEntity.cs" />
     <Compile Include="Goal\Composite\GoalFollowPath.cs" />
@@ -95,6 +98,7 @@
     <Compile Include="Helper\AnimatedSprite.cs" />
     <Compile Include="Helper\EntityFeature.cs" />
     <Compile Include="Helper\Vector2Helper.cs" />
+    <Compile Include="Objects\Toolbox.cs" />
     <Compile Include="Path\AStar.cs" />
     <Compile Include="Path\GraphEdge.cs" />
     <Compile Include="Path\Graph.cs" />

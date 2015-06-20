@@ -1,12 +1,16 @@
-﻿using System.Security.Policy;
-using Escape_Mars_XNA.Character;
-using Escape_Mars_XNA.Entity;
+﻿using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
 
 namespace Escape_Mars_XNA.Goal.Evaluators
 {
     class GetRocketPartEvaluator:GoalEvaluator
     {
+        public GetRocketPartEvaluator()
+        {
+            Type = Evl.GetRocketPart;
+            SingleGoalInstance = false;
+        }
+
         public override double CalculateDesirability(MovingEntity owner)
         {
             var desirability = 0.0;

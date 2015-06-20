@@ -64,7 +64,10 @@ namespace Escape_Mars_XNA.Path
                 
 
                 // If target found then return
-                if (ncnIdx == _target.Index) return true;
+                if (ncnIdx == _target.Index)
+                {
+                    return true;
+                }
 
                 foreach (var edge in ncnNode.Edges)
                 {

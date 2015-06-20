@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
+using System.Linq;
 using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Goal.Evaluators;
+using Escape_Mars_XNA.Helper;
 
 namespace Escape_Mars_XNA.Goal.Composite
 {
@@ -12,6 +13,7 @@ namespace Escape_Mars_XNA.Goal.Composite
  
         public GoalThink(MovingEntity owner)
         {
+            Type = Typ.Think;
             Owner = owner;
 
             Evaluators.Add(new ExploreGoalEvaluator());
@@ -31,7 +33,6 @@ namespace Escape_Mars_XNA.Goal.Composite
         {
             ActivateIfInactive();
 
-            Console.WriteLine("caca " + Subgoals.Count);
             var subgoalStatus = ProcessSubgoals();
 
             if (subgoalStatus == Sts.Completed || subgoalStatus == Sts.Failed)
@@ -65,17 +66,23 @@ namespace Escape_Mars_XNA.Goal.Composite
 
             if (best != null)
             {
-                if (Subgoals.Count != 0)
+                if (!best.SingleGoalInstance)
                 {
-                    var first = Subgoals.Peek();
-                    if (first.GetType().ToString().Contains("GoalExplore") && best.GetType().ToString().Contains("ExploreGoalEvaluator"))
-                    {
-                        return;
-                    }  
+                    best.SetGoal(Owner);
                 }
-                
-                best.SetGoal(Owner);
+                else
+                {
+                    if (!GoalExistsAlready(best))
+                    {
+                        best.SetGoal(Owner);
+                    }
+                }
             }
+        }
+
+        private bool GoalExistsAlready(GoalEvaluator best)
+        {
+            return Subgoals.Any(goal => goal.Type == best.GetCorrespondentGoalType(best.Type));
         }
 
         public void AddExploreGoal()

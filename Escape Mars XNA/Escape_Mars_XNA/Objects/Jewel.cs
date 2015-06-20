@@ -3,27 +3,25 @@ using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escape_Mars_XNA.Character
+namespace Escape_Mars_XNA.Objects
 {
-    class Rocket : BaseGameEntity
+    class Jewel:BaseGameEntity
     {
-        public Rocket(Vector2 position)
+        public Jewel(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.Rocket;
+            ItemType = EntityFeature.Itm.RocketPart;
 
-            // Sprite dimensions
-            Width = 128;
-            Height = 128;
+            Width = 32;
+            Height = 32;
 
             Position = position;
 
             // Set sprite no. of columns
-            AnimatedSprite = new AnimatedSprite(1, 5) {Animate = false};
+            AnimatedSprite = new AnimatedSprite(1, 5) { Animate = false };
         }
 
         public override void Update(double elapsedTime)
         {
-            // Update sprite
             AnimatedSprite.Update(elapsedTime);
         }
 
@@ -31,7 +29,7 @@ namespace Escape_Mars_XNA.Character
         {
             spriteBatch.Draw(
                 AnimatedSprite.Texture,
-                new Rectangle((int)Position.X - Width / 2, (int)Position.Y - Height / 2, Width, Height),
+                new Rectangle((int)Position.X, (int)Position.Y, Width, Height),
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
                 ); 

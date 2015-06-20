@@ -91,6 +91,51 @@
       <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Laika.xnb</Output>
       <Time>2015-06-19T16:50:11.5112872+02:00</Time>
     </Item>
+    <Item>
+      <Source>Font.spritefont</Source>
+      <Name>Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Font.xnb</Output>
+      <Time>2015-06-20T13:37:36.4039976+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Computer.png</Source>
+      <Name>Computer</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Computer.xnb</Output>
+      <Time>2015-06-20T16:52:01.599365+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Jewel.png</Source>
+      <Name>Jewel</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Jewel.xnb</Output>
+      <Time>2015-06-20T17:21:50.1180356+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Toolbox.png</Source>
+      <Name>Toolbox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Toolbox.xnb</Output>
+      <Time>2015-06-20T16:52:01.6023685+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Ammo.png</Source>
+      <Name>Ammo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Facultate\Erasmus\Artificial Intelligence for Games\Escape Mars XNA\Escape Mars XNA\Escape_Mars_XNA\bin\x86\Debug\Content\Ammo.xnb</Output>
+      <Time>2015-06-20T16:52:11.6961022+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{BB3BBA62-D005-4086-A1AC-07A73B4896E7}</ContentProjectGUID>

@@ -4,15 +4,25 @@ namespace Escape_Mars_XNA.Goal
 {
     abstract class GoalComposite : Goal
     {
-        public Stack<Goal> Subgoals = new Stack<Goal>();
-
         public void AddSubgoal(Goal g)
         {
+            if (Subgoals.Count != 0)
+            {
+                foreach (var subgoal in Subgoals)
+                {
+                    subgoal.Status = Sts.Halted;
+                }
+            }
             Subgoals.Push(g);
         }
 
         public Sts ProcessSubgoals()
         {
+            if (Subgoals.Count == 0)
+            {
+                return Sts.Completed;
+            }
+
             // Remove all completed and failed goals from the front
             // of the subgoal stack
             var first = Subgoals.Peek();
