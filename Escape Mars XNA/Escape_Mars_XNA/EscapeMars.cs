@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Security.AccessControl;
 using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -119,8 +117,11 @@ namespace Escape_Mars_XNA
             {
                 _hKeyPressed = true;
 
-                _world.HealthPacksCount = 0;
-                _world.Objects.Remove(_world.Objects.First(i => i.ItemType == EntityFeature.Itm.HealthPack));
+                //_world.HealthPacksCount = 0;
+                //_world.Objects.Remove(_world.Objects.First(i => i.ItemType == EntityFeature.Itm.HealthPack));
+                _world.Robot.Health --;
+                _world.Robot.Brain.Arbitrate();
+                //Console.WriteLine(_world.Robot.Health);
             }
 
             if (keyState.IsKeyUp(Keys.H) && _hKeyPressed)

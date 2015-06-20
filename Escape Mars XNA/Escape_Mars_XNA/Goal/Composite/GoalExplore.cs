@@ -12,20 +12,20 @@ namespace Escape_Mars_XNA.Goal.Composite
         public override void Activate()
         {
             Status = Sts.Active;
+
+            Owner.Behaviour = MovingEntity.Bvr.Explore;
         }
 
         public override Sts Process()
         {
             ActivateIfInactive();
 
-            Owner.Behaviour = MovingEntity.Bvr.Explore;
-
             return Status;
         }
 
         public override void Terminate()
         {
-            throw new System.NotImplementedException();
+            Owner.Behaviour = MovingEntity.Bvr.Idle;
         }
     }
 }

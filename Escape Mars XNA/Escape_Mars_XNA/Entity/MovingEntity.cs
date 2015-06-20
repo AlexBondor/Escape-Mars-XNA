@@ -73,7 +73,6 @@ namespace Escape_Mars_XNA.Entity
         public void CreatePathTo(Vector2 to)
         {
             PathPlanning.CreatePath(Position, to);
-            World.UpdateGraph(PathPlanning.GetAStar());
         }
 
         // Update the path planning

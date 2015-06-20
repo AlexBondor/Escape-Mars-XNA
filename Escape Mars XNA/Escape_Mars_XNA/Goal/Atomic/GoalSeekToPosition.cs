@@ -1,18 +1,26 @@
-﻿using Escape_Mars_XNA.Entity;
+﻿using System;
+using Escape_Mars_XNA.Entity;
+using Escape_Mars_XNA.Helper;
+using Microsoft.Xna.Framework;
 
 namespace Escape_Mars_XNA.Goal.Atomic
 {
     class GoalSeekToPosition:Goal
     {
-        public GoalSeekToPosition(MovingEntity owner)
+        private readonly Vector2 _steeringPosition;
+
+        public GoalSeekToPosition(MovingEntity owner, Vector2 steeringPosition)
         {
             Owner = owner;
+            _steeringPosition = steeringPosition;
         }
 
         public override void Activate()
         {
             Status = Sts.Active;
+            
             Owner.Behaviour = MovingEntity.Bvr.Seek;
+            Owner.SteeringPosition = _steeringPosition;
         }
 
         public override Sts Process()
@@ -21,12 +29,17 @@ namespace Escape_Mars_XNA.Goal.Atomic
             // to active
             ActivateIfInactive();
 
+            if (Vector2Helper.DistanceSq(Owner.Position, _steeringPosition) < 20)
+            {
+                Status = Sts.Completed;
+            }
+
             return Status;
         }
 
         public override void Terminate()
         {
-            Owner.Behaviour = MovingEntity.Bvr.Idle;
+            //Owner.Behaviour = MovingEntity.Bvr.Idle;
         }
     }
 }

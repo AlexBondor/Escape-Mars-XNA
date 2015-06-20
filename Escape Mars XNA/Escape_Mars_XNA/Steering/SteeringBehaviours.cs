@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
 using Escape_Mars_XNA.Path;
@@ -66,6 +65,7 @@ namespace Escape_Mars_XNA.Steering
         {
             var deltaPos = posTarget - _owner.Position;
 
+            var dist = Vector2Helper.DistanceSq(posTarget, _owner.Position);
             if (deltaPos.LengthSquared() < 1)
             {
                 _owner.Velocity = Vector2.Zero;

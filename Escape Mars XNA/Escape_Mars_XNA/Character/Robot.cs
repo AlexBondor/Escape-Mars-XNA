@@ -1,4 +1,5 @@
-﻿using Escape_Mars_XNA.Entity;
+﻿using System;
+using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Goal.Composite;
 using Escape_Mars_XNA.Helper;
 using Escape_Mars_XNA.Path;
@@ -32,7 +33,11 @@ namespace Escape_Mars_XNA.Character
 
             PathPlanning = new PathPlanning(this, World.MapGraph);
 
+            Health = 40;
+
             Brain = new GoalThink(this);
+
+            Brain.Activate();
         }
 
         // Compute the new values for the object vecotr
@@ -40,7 +45,12 @@ namespace Escape_Mars_XNA.Character
         {
             UpdatePathPlanning();
 
-            Behaviour = Bvr.Explore;
+            World.UpdateGraph(PathPlanning.GetAStar());
+
+            Brain.Process();
+
+            //Console.WriteLine(Brain.Subgoals.Count);
+
             UpdatePhysics(elapsedTime);
             
             // Update sprite 

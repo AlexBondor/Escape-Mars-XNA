@@ -41,7 +41,7 @@ namespace Escape_Mars_XNA.Character
         {
             UpdatePathPlanning();
 
-            Brain.Process();
+            Brain.Process(); 
 
             UpdatePhysics(elapsedTime);
 

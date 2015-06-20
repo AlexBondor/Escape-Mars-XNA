@@ -61,9 +61,9 @@ namespace Escape_Mars_XNA.Path
             {
                 return;
             }
-            _currentPos = _owner.Position;  
+            _currentPos = _owner.Position;
 
-            if (Vector2Helper.Distance(_currentPos, _intermediatePos) < 5 && _path != null)
+            if (Vector2Helper.DistanceSq(_currentPos, _intermediatePos) < 25 && _path != null)
             {
                 _intermediatePos = Vector2Helper.ScalarAdd(_path[0].To.Position, 16);
                 _path.Remove(_path[0]);
@@ -78,6 +78,8 @@ namespace Escape_Mars_XNA.Path
 
         public double GetCostToClosestItem(EntityFeature.Itm itemType)
         {
+            var tempAStar = new AStar(_navGraph);
+
             var itemTypePositions = _owner.World.GetItemTypePositions(itemType);
 
             var closest = double.MaxValue;
@@ -101,9 +103,9 @@ namespace Escape_Mars_XNA.Path
             var startNode = _navGraph.GetNodeByPosition(_owner.Position);
             var endNode = _navGraph.GetNodeByPosition(closestPos);
 
-            if (_aStar.Search(startNode, endNode))
+            if (tempAStar.Search(startNode, endNode))
             {
-                return _aStar.GetCost();
+                return tempAStar.GetCost();
             }
             return -1;
         }

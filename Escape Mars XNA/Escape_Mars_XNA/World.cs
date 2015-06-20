@@ -219,5 +219,21 @@ namespace Escape_Mars_XNA
             var items = Objects.Where(o => o.ItemType == itemType);
             return items.Select(item => item.Position).ToList();
         }
+
+        public Vector2 GetClosestItemTypePosition(Vector2 ownerPosition, EntityFeature.Itm itemType)
+        {
+            var items = GetItemTypePositions(itemType);
+
+            var closest = new Vector2(float.MaxValue, float.MaxValue);
+
+            foreach (var item in items)
+            {
+                if (Vector2Helper.DistanceSq(ownerPosition, closest) > Vector2Helper.DistanceSq(ownerPosition, item))
+                {
+                    closest = item;
+                }
+            }
+            return closest;
+        }
     }
 }

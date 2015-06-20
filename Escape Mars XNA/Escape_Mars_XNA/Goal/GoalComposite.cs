@@ -20,6 +20,7 @@ namespace Escape_Mars_XNA.Goal
             {
                 first.Terminate();
                 Subgoals.Pop();
+                if (Subgoals.Count == 0) break;
                 first = Subgoals.Peek();
             }
 

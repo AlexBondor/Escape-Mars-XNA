@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Goal.Evaluators;
 
@@ -30,6 +31,7 @@ namespace Escape_Mars_XNA.Goal.Composite
         {
             ActivateIfInactive();
 
+            Console.WriteLine("caca " + Subgoals.Count);
             var subgoalStatus = ProcessSubgoals();
 
             if (subgoalStatus == Sts.Completed || subgoalStatus == Sts.Failed)
@@ -63,6 +65,15 @@ namespace Escape_Mars_XNA.Goal.Composite
 
             if (best != null)
             {
+                if (Subgoals.Count != 0)
+                {
+                    var first = Subgoals.Peek();
+                    if (first.GetType().ToString().Contains("GoalExplore") && best.GetType().ToString().Contains("ExploreGoalEvaluator"))
+                    {
+                        return;
+                    }  
+                }
+                
                 best.SetGoal(Owner);
             }
         }
@@ -74,7 +85,7 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public void AddGetHealthPackGoal()
         {
-   
+            AddSubgoal(new GoalGetHealthPack(Owner));
         }
 
         public void AddGetRocketPartGoal()
