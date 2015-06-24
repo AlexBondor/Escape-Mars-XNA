@@ -14,7 +14,11 @@ namespace Escape_Mars_XNA.Goal
             FollowPath = 2,
             GetHealthPack = 3,
             Explore = 4,
-            NotSet = 5
+            AttackEnemy = 5,
+            GetRocketPart = 6,
+            ReturnRocketPart = 7,
+            GetAmmo = 8,
+            NotSet = 9
         }
 
         public enum Sts
@@ -37,6 +41,11 @@ namespace Escape_Mars_XNA.Goal
         public abstract Sts Process();
 
         public abstract void Terminate();
+
+        public virtual void OnHalt()
+        {
+            
+        }
 
         public bool IsActive()
         {

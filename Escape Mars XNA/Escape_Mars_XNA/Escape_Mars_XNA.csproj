@@ -72,14 +72,21 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Objects\Ammo.cs" />
-    <Compile Include="Objects\Computer.cs" />
-    <Compile Include="Objects\HealthPack.cs" />
-    <Compile Include="Objects\Jewel.cs" />
-    <Compile Include="Objects\Laika.cs" />
-    <Compile Include="Objects\Robot.cs" />
-    <Compile Include="Objects\Rocket.cs" />
-    <Compile Include="Objects\Sneaky.cs" />
+    <Compile Include="Goal\Composite\GoalAttackEnemy.cs" />
+    <Compile Include="Goal\Composite\GoalGetAmmo.cs" />
+    <Compile Include="Goal\Composite\GoalGetRocketPart.cs" />
+    <Compile Include="Goal\Composite\GoalReturnRocketPart.cs" />
+    <Compile Include="Helper\GameConfig.cs" />
+    <Compile Include="Objects\Consumables\Ammo.cs" />
+    <Compile Include="Objects\Others\Bullet.cs" />
+    <Compile Include="Objects\Others\PoisonCloud.cs" />
+    <Compile Include="Objects\RocketParts\Computer.cs" />
+    <Compile Include="Objects\Consumables\HealthPack.cs" />
+    <Compile Include="Objects\RocketParts\Jewel.cs" />
+    <Compile Include="Objects\Characters\Laika.cs" />
+    <Compile Include="Objects\Characters\Robot.cs" />
+    <Compile Include="Objects\Others\Rocket.cs" />
+    <Compile Include="Objects\Characters\Sneaky.cs" />
     <Compile Include="Entity\BaseGameEntity.cs" />
     <Compile Include="Entity\MovingEntity.cs" />
     <Compile Include="Goal\Composite\GoalFollowPath.cs" />
@@ -98,7 +105,7 @@
     <Compile Include="Helper\AnimatedSprite.cs" />
     <Compile Include="Helper\EntityFeature.cs" />
     <Compile Include="Helper\Vector2Helper.cs" />
-    <Compile Include="Objects\Toolbox.cs" />
+    <Compile Include="Objects\RocketParts\Toolbox.cs" />
     <Compile Include="Path\AStar.cs" />
     <Compile Include="Path\GraphEdge.cs" />
     <Compile Include="Path\Graph.cs" />
@@ -151,6 +158,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

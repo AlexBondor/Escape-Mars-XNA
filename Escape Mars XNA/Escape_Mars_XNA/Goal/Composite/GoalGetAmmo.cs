@@ -4,13 +4,13 @@ using Microsoft.Xna.Framework;
 
 namespace Escape_Mars_XNA.Goal.Composite
 {
-    class GoalGetHealthPack:GoalComposite
+    class GoalGetAmmo:GoalComposite
     {
-        private Vector2 _healthPackPosition;
+         private Vector2 _ammoPosition;
 
-        public GoalGetHealthPack(MovingEntity owner)
+        public GoalGetAmmo(MovingEntity owner)
         {
-            Type = Typ.GetHealthPack;
+            Type = Typ.GetAmmo;
             Owner = owner;
         }
 
@@ -18,16 +18,16 @@ namespace Escape_Mars_XNA.Goal.Composite
         {
             Status = Sts.Active;
 
-            var closest = Owner.World.GetClosestItemTypePosition(Owner.Position, EntityFeature.Itm.HealthPack);
+            var closest = Owner.World.GetClosestItemTypePosition(Owner.Position, EntityFeature.Itm.Ammo);
 
             if (Vector2Helper.DistanceSq(closest, new Vector2(float.MaxValue, float.MaxValue)) < 1)
             {
                 Status = Sts.Failed;
             }
 
-            _healthPackPosition = closest;
+            _ammoPosition = closest;
 
-            AddSubgoal(new GoalFollowPath(Owner, _healthPackPosition));
+            AddSubgoal(new GoalFollowPath(Owner, _ammoPosition));
         }
 
         public override Sts Process()
@@ -53,8 +53,8 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public override void Terminate()
         {
-            Owner.Health += GameConfig.HealthPackPoints;
-            Owner.RemoveItemOfTypeFromPosition(_healthPackPosition, EntityFeature.Itm.HealthPack);
+            Owner.Ammo += GameConfig.AmmoPoints;
+            Owner.RemoveItemOfTypeFromPosition(_ammoPosition, EntityFeature.Itm.Ammo);
         }
     }
 }

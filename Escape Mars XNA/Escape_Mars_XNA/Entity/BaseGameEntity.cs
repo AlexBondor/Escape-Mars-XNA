@@ -13,7 +13,7 @@ namespace Escape_Mars_XNA.Entity
         public int Height;
 
         // Every character starts with default health value of 100
-        public int Health = 100;
+        public int Health = GameConfig.DefaultHeath;
                              
         // A vector for position
         public Vector2 Position;
@@ -26,16 +26,20 @@ namespace Escape_Mars_XNA.Entity
         public AnimatedSprite AnimatedSprite;
 
         // Direction of animated sprite
-        public AnimatedSprite.Direction Direction = AnimatedSprite.Direction.Down;
+        public AnimatedSprite.Direction Direction = GameConfig.DefaultDirection;
 
         // Every entity has a unique identifying number
         public int Id { get; private set; }
 
         public EntityFeature.Itm ItemType { get; set; }
+        
+        public bool PickedUp { get; set; }
 
         // This is the nex valid id. Each time a BaseGameEntity is
         // instantiated this value is updated
         private static int _nextValidId;
+
+        public Rectangle CollisionBox = new Rectangle();
 
         protected BaseGameEntity()
         {
@@ -43,8 +47,8 @@ namespace Escape_Mars_XNA.Entity
             _nextValidId++;
 
             // Default values for width and height
-            Width = 64;
-            Height = 64;
+            Width = GameConfig.DefaultBgeWidth;
+            Height = GameConfig.DefaultHeath;
 
             World = World.Instance();
 
@@ -54,5 +58,9 @@ namespace Escape_Mars_XNA.Entity
         public abstract void Update(double elapsedTime);
 
         public abstract void Draw(SpriteBatch spriteBatch);
+
+        public virtual void FollowMe(MovingEntity who)
+        {
+        }
     }
 }

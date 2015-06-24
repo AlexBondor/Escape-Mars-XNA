@@ -6,7 +6,7 @@ using Escape_Mars_XNA.Steering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escape_Mars_XNA.Objects
+namespace Escape_Mars_XNA.Objects.Characters
 {
     class Laika:MovingEntity
     {
@@ -17,6 +17,7 @@ namespace Escape_Mars_XNA.Objects
             // Sprite dimensions
             Width = 32;
             Height = 32;
+            CollisionBox = new Rectangle(0, 0, Width, Height);
 
             // Object properties
             MaxSpeed = 40;
@@ -51,9 +52,11 @@ namespace Escape_Mars_XNA.Objects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            CollisionBox.X = (int)Position.X - Width / 2;
+            CollisionBox.Y = (int)Position.Y - Height / 2;
             spriteBatch.Draw(
                 AnimatedSprite.Texture,
-                new Rectangle((int)Position.X - Width / 2, (int)Position.Y - Height, Width, Height),
+                CollisionBox,
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
                 ); 

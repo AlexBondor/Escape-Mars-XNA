@@ -29,6 +29,12 @@ namespace Escape_Mars_XNA.Goal.Evaluators
                     return Goal.Typ.Explore;
                 case Evl.GetHealthPack:
                     return Goal.Typ.GetHealthPack;
+                case Evl.AttackEnemy:
+                    return Goal.Typ.AttackEnemy;
+                case Evl.GetAmmo:
+                    return Goal.Typ.GetAmmo;
+                case Evl.GetRocketPart:
+                    return Goal.Typ.GetRocketPart;
             }
             return Goal.Typ.NotSet;
         }

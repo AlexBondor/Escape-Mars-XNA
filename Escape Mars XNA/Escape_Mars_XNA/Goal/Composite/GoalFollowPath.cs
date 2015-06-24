@@ -1,5 +1,4 @@
-﻿using System;
-using Escape_Mars_XNA.Entity;
+﻿using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Goal.Atomic;
 using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
@@ -48,13 +47,19 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public override Sts Process()
         {
-            // Otherwise continue
-            ActivateIfInactive();
-
             if (Status == Sts.Halted)
             {
+                RemoveAllSubgoals();
                 Activate();
             }
+
+            if (Subgoals.Count == 1)
+            {
+                var i = Subgoals;
+            }
+
+            // Otherwise continue
+            ActivateIfInactive();
 
             var subgoalStatus = ProcessSubgoals();
             

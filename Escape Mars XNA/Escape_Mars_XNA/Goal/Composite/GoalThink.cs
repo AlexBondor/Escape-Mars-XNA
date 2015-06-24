@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Goal.Evaluators;
-using Escape_Mars_XNA.Helper;
 
 namespace Escape_Mars_XNA.Goal.Composite
 {
@@ -50,6 +49,8 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public void Arbitrate()
         {
+            //ProcessSubgoals();
+
             var highest = double.MinValue;
 
             GoalEvaluator best = null;
@@ -97,17 +98,17 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public void AddGetRocketPartGoal()
         {
-            
+            AddSubgoal(new GoalGetRocketPart(Owner));   
         }
 
         public void AddGetAmmoGoal()
         {
-            
+            AddSubgoal(new GoalGetAmmo(Owner));
         }
 
         public void AddAttackEnemyGoal()
         {
-            
+            AddSubgoal(new GoalAttackEnemy(Owner));
         }
     }
 }

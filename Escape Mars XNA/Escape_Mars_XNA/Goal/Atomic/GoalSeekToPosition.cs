@@ -1,4 +1,5 @@
-﻿using Escape_Mars_XNA.Entity;
+﻿using System;
+using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 
@@ -20,7 +21,7 @@ namespace Escape_Mars_XNA.Goal.Atomic
         {
             Status = Sts.Active;
             // Set entity behaviour to seeking
-            Owner.Behaviour = MovingEntity.Bvr.Seek;
+            Owner.Behaviour = GameConfig.Bvr.Seek;
             // Set the entity's steering position
             Owner.SteeringPosition = _steeringPosition;
         }
@@ -37,7 +38,7 @@ namespace Escape_Mars_XNA.Goal.Atomic
             }
 
             // If entity arrived at the specified point
-            if (Vector2Helper.DistanceSq(Owner.Position, _steeringPosition) < 25)
+            if (Vector2Helper.DistanceSq(Owner.Position, _steeringPosition) < 5)
             {
                 Status = Sts.Completed;
             }
@@ -47,12 +48,6 @@ namespace Escape_Mars_XNA.Goal.Atomic
 
         public override void Terminate()
         {
-            // If terminated while processing
-            //if (Status != Sts.Completed)
-            //{
-            //    Status = Sts.Failed;
-            //}
-            //Owner.Behaviour = MovingEntity.Bvr.Idle;
         }
     }
 }

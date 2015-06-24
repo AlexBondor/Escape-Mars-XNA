@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Escape_Mars_XNA.Goal
 {
@@ -8,12 +9,20 @@ namespace Escape_Mars_XNA.Goal
         {
             if (Subgoals.Count != 0)
             {
-                foreach (var subgoal in Subgoals)
-                {
-                    subgoal.Status = Sts.Halted;
-                }
+                HaltAllSubgoals(this);
+                
             }
             Subgoals.Push(g);
+        }
+
+        private void HaltAllSubgoals(Goal goal)
+        {
+            foreach (var subgoal in goal.Subgoals.Where(subgoal => subgoal.Status == Sts.Active))
+            {
+                subgoal.Status = Sts.Halted;
+                subgoal.OnHalt();
+                HaltAllSubgoals(subgoal);
+            }
         }
 
         public Sts ProcessSubgoals()
@@ -30,7 +39,10 @@ namespace Escape_Mars_XNA.Goal
             {
                 first.Terminate();
                 Subgoals.Pop();
-                if (Subgoals.Count == 0) break;
+                if (Subgoals.Count == 0)
+                {
+                    break;
+                }
                 first = Subgoals.Peek();
             }
 

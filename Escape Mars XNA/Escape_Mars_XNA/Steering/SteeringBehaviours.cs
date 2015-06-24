@@ -15,9 +15,9 @@ namespace Escape_Mars_XNA.Steering
             Fast = 1
         };
 
-        private Vector2 _lastHidingSpot = Vector2.Zero;
-
         private readonly MovingEntity _owner;
+
+        private double _timer;
 
         public SteeringBehaviours(MovingEntity owner)
         {
@@ -65,7 +65,6 @@ namespace Escape_Mars_XNA.Steering
         {
             var deltaPos = posTarget - _owner.Position;
 
-            var dist = Vector2Helper.DistanceSq(posTarget, _owner.Position);
             if (deltaPos.LengthSquared() < 1)
             {
                 _owner.Velocity = Vector2.Zero;
@@ -116,9 +115,11 @@ namespace Escape_Mars_XNA.Steering
                 bestHidingSpot = hidingSpot;
             }
 
-            if (_lastHidingSpot != bestHidingSpot)
+            _timer ++;
+
+            if (_timer > 50)
             {
-                _lastHidingSpot = bestHidingSpot;
+                _timer = 0;
                 _owner.PathPlanning.CreatePath(_owner.Position, bestHidingSpot);
             }
 
@@ -146,7 +147,7 @@ namespace Escape_Mars_XNA.Steering
         {
             // Calculate how far away the agent is to be from the
             // chosen obstacle's bounding radius
-            const double distanceFromBoundary = 100.0;
+            const double distanceFromBoundary = 50.0;
 
             var distAway = radius + distanceFromBoundary;
 
@@ -187,25 +188,25 @@ namespace Escape_Mars_XNA.Steering
             switch (quadrant)
             {
                 case 0:
-                    return map.RandomValidNode(
+                    return map.RandomValidPosition(
                         0,
                         map.Rows % 2 == 0 ? (map.Rows - 1) / 2 : map.Rows / 2,
                         0,
                         map.Cols % 2 == 0 ? (map.Cols - 1) / 2 : map.Cols / 2);
                 case 1:
-                    return map.RandomValidNode(
+                    return map.RandomValidPosition(
                         0,
                         map.Rows % 2 == 0 ? (map.Rows - 1) / 2 : map.Rows / 2,
                         map.Cols % 2 == 0 ? (map.Cols - 1) / 2 : map.Cols / 2,
                         map.Cols - 1);
                 case 2:
-                    return map.RandomValidNode(
+                    return map.RandomValidPosition(
                         map.Rows % 2 == 0 ? (map.Rows - 1) / 2 : map.Rows / 2,
                         map.Rows - 1,
                         map.Cols % 2 == 0 ? (map.Cols - 1) / 2 : map.Cols / 2,
                         map.Cols - 1);
                 case 3:
-                    return map.RandomValidNode(
+                    return map.RandomValidPosition(
                         map.Rows % 2 == 0 ? (map.Rows - 1) / 2 : map.Rows / 2,
                         map.Rows - 1,
                         0,

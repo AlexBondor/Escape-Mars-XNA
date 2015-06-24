@@ -4,12 +4,6 @@ namespace Escape_Mars_XNA.Helper
 {
     static class EntityFeature
     {
-        public const double MaxDistance = 500.0;
-        public const double MinDistance = 50.0;
-        public const int MaxAmmo = 30;
-        public const int MaxHealth = 30;
-        public const int HealthPackPoints = 25;
-
         public enum Itm
         {
             RocketPart = 0,
@@ -21,7 +15,9 @@ namespace Escape_Mars_XNA.Helper
             Attacker = 6,
             Dumby = 7,
             Laika = 8,
-            NotSet = 9
+            Bullet = 9,
+            PoisonCloud = 10,
+            NotSet = 11
         }
 
         // Returns a value between 0 and 1 based on the
@@ -29,7 +25,7 @@ namespace Escape_Mars_XNA.Helper
         // the rating
         public static double Health(MovingEntity entity)
         {
-            return (double)entity.Health / MaxHealth;
+            return (double)entity.Health / GameConfig.MaxHealth;
         }
 
         // Returns a value between 0 and 1 based on the
@@ -53,9 +49,9 @@ namespace Escape_Mars_XNA.Helper
             // There values represent the cuttoffs. Any distance over
             // MaxDistance results in value of 1, and value below MinDistance
             // results in a value of 1
-            var clamped = Vector2Helper.Clamp(distanceToItem, MinDistance, MaxDistance);
+            var clamped = Vector2Helper.Clamp(distanceToItem, GameConfig.MinDistance, GameConfig.MaxDistance);
 
-            return clamped / MaxDistance;
+            return clamped / GameConfig.MaxDistance;
         }
 
         // Returns a value between 0 and 1 based on how much
@@ -64,7 +60,7 @@ namespace Escape_Mars_XNA.Helper
         // max amount, the higher the score
         public static double WeaponStrength(MovingEntity entity)
         {
-            return (double)entity.Ammo / MaxAmmo;
+            return (double)entity.Ammo / GameConfig.MaxAmmo;
         }
     }
 }

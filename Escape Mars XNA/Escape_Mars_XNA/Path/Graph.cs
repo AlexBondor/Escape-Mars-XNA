@@ -203,7 +203,7 @@ namespace Escape_Mars_XNA.Path
             return Nodes.Where(n => !n.Active).Where(node => node.Col != 0 && node.Col != Cols - 1 && node.Row != 0 && node.Row != Rows - 1).ToArray();
         }
 
-        public Vector2 RandomValidNode(int rowLeft, int rowRight, int colLeft, int colRight)
+        public Vector2 RandomValidPosition(int rowLeft, int rowRight, int colLeft, int colRight)
         {
             // So that consecutive calls won't return the same node
             Thread.Sleep(10);

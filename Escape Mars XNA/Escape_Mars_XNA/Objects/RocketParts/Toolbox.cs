@@ -3,16 +3,19 @@ using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Escape_Mars_XNA.Objects
+namespace Escape_Mars_XNA.Objects.RocketParts
 {
-    class HealthPack:BaseGameEntity
+    class Toolbox:BaseGameEntity
     {
-        public HealthPack(Vector2 position)
-        {
-            ItemType = EntityFeature.Itm.HealthPack;
+        private MovingEntity _toFollow;
 
-            Width = 16;
-            Height = 16;
+        public Toolbox(Vector2 position)
+        {
+            ItemType = EntityFeature.Itm.RocketPart;
+
+            Width = 32;
+            Height = 32;
+            CollisionBox = new Rectangle(0, 0, Width, Height);
 
             Position = position;
 
@@ -23,13 +26,29 @@ namespace Escape_Mars_XNA.Objects
         public override void Update(double elapsedTime)
         {
             AnimatedSprite.Update(elapsedTime);
+
+            if (PickedUp)
+            {
+                UpdatePosition();
+            }
+        }
+        public void UpdatePosition()
+        {
+            Position = _toFollow.Position;
+        }
+
+        public override void FollowMe(MovingEntity who)
+        {
+            _toFollow = who;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            CollisionBox.X = (int)Position.X;
+            CollisionBox.Y = (int)Position.Y;
             spriteBatch.Draw(
                 AnimatedSprite.Texture,
-                new Rectangle((int)Position.X + Width / 2, (int)Position.Y + Height / 2, Width, Height),
+                CollisionBox,
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
                 ); 

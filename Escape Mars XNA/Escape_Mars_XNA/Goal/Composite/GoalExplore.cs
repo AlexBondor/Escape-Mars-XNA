@@ -1,4 +1,5 @@
 ﻿using Escape_Mars_XNA.Entity;
+using Escape_Mars_XNA.Helper;
 
 namespace Escape_Mars_XNA.Goal.Composite
 {
@@ -19,14 +20,14 @@ namespace Escape_Mars_XNA.Goal.Composite
         {
             ActivateIfInactive();
 
-            Owner.Behaviour = MovingEntity.Bvr.Explore;
+            Owner.Behaviour = GameConfig.Bvr.Explore;
 
             return Status;
         }
 
         public override void Terminate()
         {
-            Owner.Behaviour = MovingEntity.Bvr.Idle;
+            Owner.Behaviour = GameConfig.Bvr.Idle;
         }
     }
 }
