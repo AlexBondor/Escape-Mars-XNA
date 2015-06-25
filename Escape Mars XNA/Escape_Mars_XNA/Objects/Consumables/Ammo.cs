@@ -9,7 +9,7 @@ namespace Escape_Mars_XNA.Objects.Consumables
     {        
         public Ammo(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.Ammo;
+            ItemType = Itm.Ammo;
 
             Width = 16;
             Height = 16;

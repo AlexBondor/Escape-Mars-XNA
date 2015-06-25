@@ -8,6 +8,17 @@ namespace Escape_Mars_XNA.Steering
 {
     class SteeringBehaviours
     {
+        public enum Bvr
+        {
+            Seek = 0,
+            Arrive = 1,
+            Flee = 2,
+            Evade = 3,
+            Hide = 4,
+            Explore = 5,
+            Idle = 6
+        };
+
         public enum Dcl
         {
             Slow = 3,

@@ -9,7 +9,7 @@ namespace Escape_Mars_XNA.Goal.Composite
     class GoalThink:GoalComposite
     {
         public List<GoalEvaluator> Evaluators = new List<GoalEvaluator>();
- 
+
         public GoalThink(MovingEntity owner)
         {
             Type = Typ.Think;
@@ -20,6 +20,7 @@ namespace Escape_Mars_XNA.Goal.Composite
             Evaluators.Add(new GetHealthPackEvaluator());
             Evaluators.Add(new GetAmmoGoalEvaluator());
             Evaluators.Add(new GetRocketPartEvaluator());
+            Evaluators.Add(new ReturnToRocketEvaluator());
         }
 
         public override void Activate()
@@ -49,7 +50,7 @@ namespace Escape_Mars_XNA.Goal.Composite
 
         public void Arbitrate()
         {
-            //ProcessSubgoals();
+            ProcessSubgoals();
 
             var highest = double.MinValue;
 
@@ -67,16 +68,9 @@ namespace Escape_Mars_XNA.Goal.Composite
 
             if (best != null)
             {
-                if (!best.SingleGoalInstance)
+                if (!GoalExistsAlready(best))
                 {
                     best.SetGoal(Owner);
-                }
-                else
-                {
-                    if (!GoalExistsAlready(best))
-                    {
-                        best.SetGoal(Owner);
-                    }
                 }
             }
         }
@@ -109,6 +103,11 @@ namespace Escape_Mars_XNA.Goal.Composite
         public void AddAttackEnemyGoal()
         {
             AddSubgoal(new GoalAttackEnemy(Owner));
+        }
+
+        public void AddReturnToRocketGoal()
+        {
+            AddSubgoal(new GoalReturnToRocket(Owner));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Escape_Mars_XNA.Objects.Others
 
         public Bullet(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.Bullet;
+            ItemType = Itm.Bullet;
 
             Width = 32;
             Height = 32;
@@ -28,7 +28,7 @@ namespace Escape_Mars_XNA.Objects.Others
 
             SteeringBehaviour = new SteeringBehaviours(this);
 
-            Behaviour = GameConfig.Bvr.Seek;
+            Behaviour = SteeringBehaviours.Bvr.Seek;
 
             SteeringPosition = Vector2.One;
         }
@@ -38,7 +38,7 @@ namespace Escape_Mars_XNA.Objects.Others
             // If bullet out of viewing area
             if (Vector2Helper.DistanceSq(Position, SteeringPosition) < 100)
             {
-                World.RemoveItemOfTypeFromPosition(Position, EntityFeature.Itm.Bullet);
+                World.RemoveItemOfTypeFromPosition(Position, Itm.Bullet);
             }
 
             UpdatePhysics(elapsedTime);

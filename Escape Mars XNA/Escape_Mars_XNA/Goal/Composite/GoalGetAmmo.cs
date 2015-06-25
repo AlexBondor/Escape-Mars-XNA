@@ -18,7 +18,7 @@ namespace Escape_Mars_XNA.Goal.Composite
         {
             Status = Sts.Active;
 
-            var closest = Owner.World.GetClosestItemTypePosition(Owner.Position, EntityFeature.Itm.Ammo);
+            var closest = Owner.World.GetClosestItemTypePosition(Owner.Position, BaseGameEntity.Itm.Ammo);
 
             if (Vector2Helper.DistanceSq(closest, new Vector2(float.MaxValue, float.MaxValue)) < 1)
             {
@@ -54,7 +54,7 @@ namespace Escape_Mars_XNA.Goal.Composite
         public override void Terminate()
         {
             Owner.Ammo += GameConfig.AmmoPoints;
-            Owner.RemoveItemOfTypeFromPosition(_ammoPosition, EntityFeature.Itm.Ammo);
+            Owner.RemoveItemOfTypeFromPosition(_ammoPosition, BaseGameEntity.Itm.Ammo);
         }
     }
 }

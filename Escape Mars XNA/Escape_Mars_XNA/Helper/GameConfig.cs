@@ -32,17 +32,10 @@
 
         public const int MaxAlienCount = 3;
 
-        public const int BulletDamage = 25;
+        public const int BulletDamage = 20;
 
-        public enum Bvr
-        {
-            Seek = 0,
-            Arrive = 1,
-            Flee = 2,
-            Evade = 3,
-            Hide = 4,
-            Explore = 5,
-            Idle = 6
-        };
+        public const int PoisonDamage = 1;
+
+        public const int PanicDistance = 120000;
     }
 }

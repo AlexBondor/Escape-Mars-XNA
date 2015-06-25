@@ -18,7 +18,7 @@ namespace Escape_Mars_XNA.Goal.Composite
         {
             Status = Sts.Active;
 
-            var closest = Owner.World.GetClosestItemTypePosition(Owner.Position, EntityFeature.Itm.RocketPart);
+            var closest = Owner.World.GetClosestItemTypePosition(Owner.Position, BaseGameEntity.Itm.RocketPart);
 
             _rocketPart = Owner.World.Objects.First(o => o.Position == closest);
 

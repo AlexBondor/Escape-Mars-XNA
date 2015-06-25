@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using Escape_Mars_XNA.Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,11 +14,14 @@ namespace Escape_Mars_XNA
         private bool _displayGraph;
         private bool _displayRobotBrainStack;
         private int _brainStackLevel = 2;
+        private bool _gamePaused;
 
         // 
         private bool _bKeyPressed;
         private bool _gKeyPressed;
+        private bool _pKeyPressed;
         private bool _rKeyPressed;
+        private bool _hKeyPressed;
         private bool _leftClick;
 
         public GraphicsDeviceManager Graphics { get; private set; }
@@ -57,15 +58,7 @@ namespace Escape_Mars_XNA
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _world.Load(Content);
-        }
-
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
+            _world.SetSpriteBatch(_spriteBatch);
         }
 
         /// <summary>
@@ -94,11 +87,17 @@ namespace Escape_Mars_XNA
 
                 var seekMouse = new Vector2(mouseState.X, mouseState.Y);
 
+                if (seekMouse.X < 0 || seekMouse.X > Vector2Helper.WindowWidth || seekMouse.Y < 0 ||
+                    seekMouse.Y > Vector2Helper.WindowHeight)
+                {
+                    return;
+                }
+
                 _world.RobotMoveTo(seekMouse);
             }
 
             var keyState = Keyboard.GetState();
-            
+
             /**
              * Display or not the graph
              */
@@ -160,6 +159,21 @@ namespace Escape_Mars_XNA
             }
 
             /**
+             * Damage robot
+             */
+            if (keyState.IsKeyDown(Keys.H) && !_hKeyPressed)
+            {
+                _hKeyPressed = true;
+
+                _world.Robot.TakeDamage(5);
+            }
+
+            if (keyState.IsKeyUp(Keys.H) && _hKeyPressed)
+            {
+                _hKeyPressed = false;
+            }
+
+            /**
              * Reset the game
              */
             if (keyState.IsKeyDown(Keys.R) && !_rKeyPressed)
@@ -171,9 +185,22 @@ namespace Escape_Mars_XNA
                 _world.Load(Content);
             }
 
-            if (keyState.IsKeyUp(Keys.R) && _rKeyPressed)
+            if (keyState.IsKeyUp(Keys.P) && _rKeyPressed)
             {
                 _rKeyPressed = false;
+            }
+
+            if (keyState.IsKeyDown(Keys.P) && !_pKeyPressed)
+            {
+                _pKeyPressed = true;
+
+                _gamePaused = !_gamePaused;
+                _world.Paused = _gamePaused;
+            }
+
+            if (keyState.IsKeyUp(Keys.P) && _pKeyPressed)
+            {
+                _pKeyPressed = false;
             }
 
             base.Update(gameTime);
@@ -188,8 +215,8 @@ namespace Escape_Mars_XNA
             GraphicsDevice.Clear(Color.LightGray);
 
             _spriteBatch.Begin();
-            _world.Draw(_spriteBatch);
-            _world.DisplayInfo(_spriteBatch);
+            _world.Draw();
+            _world.DisplayInfo();
             _spriteBatch.End();
 
             base.Draw(gameTime);

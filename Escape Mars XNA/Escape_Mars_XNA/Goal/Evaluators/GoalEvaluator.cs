@@ -1,11 +1,10 @@
 ﻿using Escape_Mars_XNA.Entity;
+using Escape_Mars_XNA.Helper;
 
 namespace Escape_Mars_XNA.Goal.Evaluators
 {
     abstract class GoalEvaluator
     {
-        public bool SingleGoalInstance { get; set; }
-
         public enum Evl
         {
             AttackEnemy = 0,

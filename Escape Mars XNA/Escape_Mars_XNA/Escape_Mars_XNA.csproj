@@ -76,6 +76,8 @@
     <Compile Include="Goal\Composite\GoalGetAmmo.cs" />
     <Compile Include="Goal\Composite\GoalGetRocketPart.cs" />
     <Compile Include="Goal\Composite\GoalReturnRocketPart.cs" />
+    <Compile Include="Goal\Composite\GoalReturnToRocket.cs" />
+    <Compile Include="Goal\Evaluators\ReturnToRocketEvaluator.cs" />
     <Compile Include="Helper\GameConfig.cs" />
     <Compile Include="Objects\Consumables\Ammo.cs" />
     <Compile Include="Objects\Others\Bullet.cs" />

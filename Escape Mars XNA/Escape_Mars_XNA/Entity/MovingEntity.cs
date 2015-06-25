@@ -29,7 +29,7 @@ namespace Escape_Mars_XNA.Entity
         // Every character starts with full Ammo
         public int Ammo = GameConfig.MaxAmmo;
 
-        public GameConfig.Bvr Behaviour { get; set; }
+        public SteeringBehaviours.Bvr Behaviour { get; set; }
 
         // General Position used by Steering Behaviour
         // Set this for the Seek, Arrive, Flee or other
@@ -73,7 +73,10 @@ namespace Escape_Mars_XNA.Entity
             PathPlanning.CreatePath(Position, to);
         }
 
-        public abstract void UpdateGraphDrawing();
+        public virtual void UpdateGraphDrawing()
+        {
+            
+        }
 
         // Update the path planning
         protected void UpdatePathPlanning()
@@ -124,25 +127,25 @@ namespace Escape_Mars_XNA.Entity
             Vector2 steeringForce;
             switch (Behaviour)
             {
-                case GameConfig.Bvr.Seek:
+                case SteeringBehaviours.Bvr.Seek:
                     steeringForce = SteeringBehaviour.Seek(SteeringPosition);
                     break;
-                case GameConfig.Bvr.Arrive:
+                case SteeringBehaviours.Bvr.Arrive:
                     steeringForce = SteeringBehaviour.Arrive(SteeringPosition, Deceleration);
                     break;
-                case GameConfig.Bvr.Flee:
+                case SteeringBehaviours.Bvr.Flee:
                     steeringForce = SteeringBehaviour.Flee(SteeringPosition);
                     break;
-                case GameConfig.Bvr.Evade:
+                case SteeringBehaviours.Bvr.Evade:
                     steeringForce = SteeringBehaviour.Evade(Enemy);
                     break;
-                case GameConfig.Bvr.Hide:
+                case SteeringBehaviours.Bvr.Hide:
                     steeringForce = SteeringBehaviour.Hide(Enemy, Obstacles);
                     break;
-                case GameConfig.Bvr.Explore:
+                case SteeringBehaviours.Bvr.Explore:
                     steeringForce = SteeringBehaviour.Explore(SteeringPosition);
                     break;
-                case GameConfig.Bvr.Idle:
+                case SteeringBehaviours.Bvr.Idle:
                     return;
                 default:
                     return;
@@ -178,8 +181,28 @@ namespace Escape_Mars_XNA.Entity
             }
         }
 
+        protected virtual void OnDie()
+        {
+            
+        }
+
+        public void TakeDamage(int amount)
+        {
+            Health -= amount;
+            if (Health < 0)
+            {
+                Die();
+            }
+        }
+
+        public void TakeHp(int amount)
+        {
+            Health += amount;
+        }
+
         private void Die()
         {
+            OnDie();
             RemoveEnemyFromAll();
         }
 
@@ -192,16 +215,17 @@ namespace Escape_Mars_XNA.Entity
             World.ObjectsToBeRemoved.Add(this);
         }
 
-        public void RemoveItemOfTypeFromPosition(Vector2 position, EntityFeature.Itm type)
+        public void RemoveItemOfTypeFromPosition(Vector2 position, BaseGameEntity.Itm type)
         {
             World.RemoveItemOfTypeFromPosition(position, type);
         }
 
         public virtual void ShootBullet()
         {
-
         }
 
+        // Check whether any bulet hit its target or it is out of screen
+        // remove the bullet if so
         protected void NegotiateBullets()
         {
             foreach (var bullet in Bullets)
@@ -231,10 +255,10 @@ namespace Escape_Mars_XNA.Entity
 
                         if (enemyHitBox.Intersects(bullet.CollisionBox))
                         {
-                            enemy.Health -= bullet.Damage;
+                            enemy.TakeDamage(bullet.Damage);
                             bullet.AnimatedSprite.Animate = true;
                             bullet.Velocity = Vector2.Zero;
-                            bullet.Behaviour = GameConfig.Bvr.Idle;
+                            bullet.Behaviour = SteeringBehaviours.Bvr.Idle;
                         }
                     }
                 }
@@ -271,21 +295,7 @@ namespace Escape_Mars_XNA.Entity
 
             return bullet;
         }
-
-        protected PoisonCloud AddPoisonCloud(Vector2 posTarget)
-        {
-            var poisonCloud = new PoisonCloud(posTarget)
-            {
-                AnimatedSprite =
-                {
-                    Texture = World.GetContentManager().Load<Texture2D>("PoisonCloud")
-                }
-            };
-
-            World.ObjectsToBeAdded.Add(poisonCloud);
-            return poisonCloud;
-        }
-
+        
         protected void DrawHealthAndAmmo(SpriteBatch spriteBatch)
         {
             var position = new Vector2

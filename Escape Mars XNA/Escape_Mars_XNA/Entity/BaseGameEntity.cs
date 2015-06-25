@@ -6,6 +6,20 @@ namespace Escape_Mars_XNA.Entity
 {
     abstract class BaseGameEntity
     {
+        public enum Itm
+        {
+            RocketPart = 0,
+            HealthPack = 1,
+            Ammo = 2,
+            Rocket = 3,
+            Robot = 4,
+            Sneaky = 5,
+            Laika = 6,
+            Bullet = 7,
+            PoisonCloud = 8,
+            NotSet = 9
+        }
+
         // Width of sprite
         public int Width;
 
@@ -31,7 +45,7 @@ namespace Escape_Mars_XNA.Entity
         // Every entity has a unique identifying number
         public int Id { get; private set; }
 
-        public EntityFeature.Itm ItemType { get; set; }
+        public Itm ItemType { get; set; }
         
         public bool PickedUp { get; set; }
 
@@ -52,7 +66,7 @@ namespace Escape_Mars_XNA.Entity
 
             World = World.Instance();
 
-            ItemType = EntityFeature.Itm.NotSet;
+            ItemType = Itm.NotSet;
         }
 
         public abstract void Update(double elapsedTime);

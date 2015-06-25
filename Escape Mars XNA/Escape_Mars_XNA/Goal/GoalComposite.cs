@@ -15,7 +15,7 @@ namespace Escape_Mars_XNA.Goal
             Subgoals.Push(g);
         }
 
-        private void HaltAllSubgoals(Goal goal)
+        private static void HaltAllSubgoals(Goal goal)
         {
             foreach (var subgoal in goal.Subgoals.Where(subgoal => subgoal.Status == Sts.Active))
             {

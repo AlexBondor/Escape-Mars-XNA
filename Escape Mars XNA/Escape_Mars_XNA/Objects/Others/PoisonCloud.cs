@@ -8,9 +8,11 @@ namespace Escape_Mars_XNA.Objects.Others
 {
     class PoisonCloud:MovingEntity
     {
+        public int Damage = GameConfig.PoisonDamage;
+        
         public PoisonCloud(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.PoisonCloud;
+            ItemType = Itm.PoisonCloud;
 
             Width = 32;
             Height = 32;
@@ -26,19 +28,13 @@ namespace Escape_Mars_XNA.Objects.Others
 
             SteeringBehaviour = new SteeringBehaviours(this);
 
-            Behaviour = GameConfig.Bvr.Idle;
+            Behaviour = SteeringBehaviours.Bvr.Idle;
 
             SteeringPosition = Vector2.One;
         }
 
         public override void Update(double elapsedTime)
         {
-            // If bullet out of viewing area
-            if (AnimatedSprite.CurrentCol == 9)
-            {
-                World.RemoveItemOfTypeFromPosition(Position, EntityFeature.Itm.PoisonCloud);  
-            }
-
             UpdatePhysics(elapsedTime);
 
             AnimatedSprite.Update(elapsedTime);
@@ -56,11 +52,6 @@ namespace Escape_Mars_XNA.Objects.Others
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
                 );
-        }
-
-        public override void UpdateGraphDrawing()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

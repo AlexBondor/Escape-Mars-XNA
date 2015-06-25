@@ -8,13 +8,10 @@ namespace Escape_Mars_XNA.Goal.Evaluators
         public GetRocketPartEvaluator()
         {
             Type = Evl.GetRocketPart;
-            SingleGoalInstance = true;
         }
 
         public override double CalculateDesirability(MovingEntity owner)
         {
-            var desirability = 0.0;
-
             if (!owner.CanPickUp || owner.World.RocketPartsCount == 0)
             {
                 return 0;
@@ -29,9 +26,9 @@ namespace Escape_Mars_XNA.Goal.Evaluators
 
             var health = EntityFeature.Health(owner);
             var weaponStrength = EntityFeature.WeaponStrength(owner);
-            var distance = EntityFeature.DistanceToItem(owner, EntityFeature.Itm.RocketPart);
+            var distance = EntityFeature.DistanceToItem(owner, BaseGameEntity.Itm.RocketPart);
 
-            desirability = tweaker * health * weaponStrength / distance;
+            var desirability = tweaker * health * weaponStrength / distance;
 
             return Vector2Helper.Clamp(desirability, 0, 1);
         }

@@ -7,11 +7,9 @@ namespace Escape_Mars_XNA.Goal.Composite
 {
     class GoalAttackEnemy : GoalComposite
     {
-        private Vector2 _enemyPosition;
-
         private BaseGameEntity _enemy;
 
-        private double _timer = 0;
+        private double _timer;
 
         public GoalAttackEnemy(MovingEntity owner)
         {
@@ -28,35 +26,22 @@ namespace Escape_Mars_XNA.Goal.Composite
                 return;
             }
 
-            if (Owner.ItemType != EntityFeature.Itm.Robot)
+            // Get the closest enemy taking into account if it is the robot
+            // or sneaky bastard
+            if (Owner.ItemType != BaseGameEntity.Itm.Robot)
             {
-                _enemyPosition = Owner.World.Robot.Position;
-
                 _enemy = Owner.World.Robot;
             }
             else
             {
-                var closestSneaky = Owner.World.GetClosestItemTypePosition(Owner.Position, EntityFeature.Itm.Sneaky);
-                var closestDumby = Owner.World.GetClosestItemTypePosition(Owner.Position, EntityFeature.Itm.Dumby);
-                var closestAttacker = Owner.World.GetClosestItemTypePosition(Owner.Position, EntityFeature.Itm.Attacker);
-
-                var a = Vector2Helper.DistanceSq(closestSneaky, Owner.Position);
-                var b = Vector2Helper.DistanceSq(closestDumby, Owner.Position);
-                var c = Vector2Helper.DistanceSq(closestAttacker, Owner.Position);
-
-                _enemyPosition = a < b ? a < c ? closestSneaky : closestAttacker : b < c ? closestDumby : closestAttacker;
-
-                _enemy = Owner.World.Objects.First(o => o.Position == _enemyPosition);
+                var closestSneaky = Owner.World.GetClosestItemTypePosition(Owner.Position, BaseGameEntity.Itm.Sneaky);
+                
+                _enemy = Owner.World.Objects.First(o => o.Position == closestSneaky);
 
                 Owner.Enemy = (MovingEntity)_enemy;
             }
 
-            if (Vector2Helper.DistanceSq(_enemyPosition, new Vector2(float.MaxValue, float.MaxValue)) < 1)
-            {
-                Status = Sts.Failed;
-            }
-
-            AddSubgoal(new GoalFollowPath(Owner, _enemyPosition));
+            AddSubgoal(new GoalFollowPath(Owner, _enemy.Position));
         }
 
         public override Sts Process()

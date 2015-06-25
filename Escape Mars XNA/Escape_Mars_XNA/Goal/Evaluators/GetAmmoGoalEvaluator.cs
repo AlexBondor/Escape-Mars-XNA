@@ -9,19 +9,18 @@ namespace Escape_Mars_XNA.Goal.Evaluators
         public GetAmmoGoalEvaluator()
         {
             Type = Evl.GetAmmo;
-            SingleGoalInstance = true;
         }
 
         public override double CalculateDesirability(MovingEntity owner)
         {
-            var distance = EntityFeature.DistanceToItem(owner, EntityFeature.Itm.Ammo);
+            var distance = EntityFeature.DistanceToItem(owner, BaseGameEntity.Itm.Ammo);
 
             if (Math.Abs(distance - 1) < double.Epsilon)
             {
                 return 0;
             }
 
-            const double tweaker = 0.15;
+            const double tweaker = 0.03;
 
             var health = EntityFeature.Health(owner);
 

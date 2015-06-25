@@ -1,6 +1,6 @@
-﻿using System;
-using Escape_Mars_XNA.Entity;
+﻿using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
+using Escape_Mars_XNA.Steering;
 using Microsoft.Xna.Framework;
 
 namespace Escape_Mars_XNA.Goal.Atomic
@@ -21,7 +21,7 @@ namespace Escape_Mars_XNA.Goal.Atomic
         {
             Status = Sts.Active;
             // Set entity behaviour to seeking
-            Owner.Behaviour = GameConfig.Bvr.Seek;
+            Owner.Behaviour = SteeringBehaviours.Bvr.Seek;
             // Set the entity's steering position
             Owner.SteeringPosition = _steeringPosition;
         }

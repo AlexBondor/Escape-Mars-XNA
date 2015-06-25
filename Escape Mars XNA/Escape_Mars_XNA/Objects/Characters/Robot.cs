@@ -12,7 +12,8 @@ namespace Escape_Mars_XNA.Objects.Characters
 {
     class Robot : MovingEntity
     {
-        private double _elapsedTime;
+        private double _shootBulletTime;
+        private double _brainArbitrateTime;
 
         private bool _displayBrainStack;
 
@@ -20,7 +21,7 @@ namespace Escape_Mars_XNA.Objects.Characters
 
         public Robot(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.Robot;
+            ItemType = Itm.Robot;
 
             // Sprite dimensions
             Width = 64;
@@ -51,11 +52,18 @@ namespace Escape_Mars_XNA.Objects.Characters
         // Compute the new values for the object vecotr
         public override void Update(double elapsedTime)
         {
-            _elapsedTime += elapsedTime;
+            _shootBulletTime += elapsedTime;
+            _brainArbitrateTime += elapsedTime;
 
             UpdatePathPlanning();
 
             Brain.Process();
+
+            if (_brainArbitrateTime > 0.5)
+            {
+                _brainArbitrateTime = 0;
+                Brain.Arbitrate();
+            }
 
             UpdatePhysics(elapsedTime);
 
@@ -72,11 +80,10 @@ namespace Escape_Mars_XNA.Objects.Characters
 
         public override void ShootBullet()
         {
-            if (_elapsedTime < 0.5) return;
+            if (_shootBulletTime < 0.5) return;
+            _shootBulletTime = 0;
             TurnToTarget();
             Ammo--;
-            Brain.Arbitrate();
-            _elapsedTime = 0;
             var bulletPosition = Position;
             var targetPosition = Position;
             var bulletRange = GameConfig.BulletRange;
@@ -192,6 +199,11 @@ namespace Escape_Mars_XNA.Objects.Characters
         {
             _displayBrainStack = display;
             _brainStackLevel = brainStackLevel;
+        }
+
+        protected override void OnDie()
+        {
+            World.GameOver(ItemType);
         }
     }
 }

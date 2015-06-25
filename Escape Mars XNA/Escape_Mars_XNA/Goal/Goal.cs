@@ -18,7 +18,8 @@ namespace Escape_Mars_XNA.Goal
             GetRocketPart = 6,
             ReturnRocketPart = 7,
             GetAmmo = 8,
-            NotSet = 9
+            ReturnToRocket = 9,
+            NotSet = 10
         }
 
         public enum Sts

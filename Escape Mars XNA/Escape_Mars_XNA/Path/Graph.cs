@@ -132,6 +132,7 @@ namespace Escape_Mars_XNA.Path
             }
             catch (Exception)
             {
+                Console.WriteLine(1);
                 return null;
             }
         }
@@ -150,6 +151,7 @@ namespace Escape_Mars_XNA.Path
             }
             catch (Exception)
             {
+                Console.WriteLine(2);
                 return null;
             }
             
@@ -164,6 +166,7 @@ namespace Escape_Mars_XNA.Path
             }
             catch (Exception)
             {
+                Console.WriteLine(3);
                 return null;
             }
         }
@@ -177,6 +180,7 @@ namespace Escape_Mars_XNA.Path
             }
             catch (Exception)
             {
+                Console.WriteLine(4);
                 return null;
             }
         }
@@ -216,14 +220,11 @@ namespace Escape_Mars_XNA.Path
             {
                 var row = rdn.Next(rowLeft, rowRight);
                 var col = rdn.Next(colLeft, colRight);
-                try
+
+                var temp = GetNodeByRowCol(row, col);
+                if (temp.Active)
                 {
-                    var temp = nodes.First(n => n.Row == row && n.Col == col);
                     return temp.Position;
-                }
-                catch (Exception)
-                {
-                    // ignored
                 }
             }
         }

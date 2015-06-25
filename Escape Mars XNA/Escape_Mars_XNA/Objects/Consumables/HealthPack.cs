@@ -9,7 +9,7 @@ namespace Escape_Mars_XNA.Objects.Consumables
     {
         public HealthPack(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.HealthPack;
+            ItemType = Itm.HealthPack;
 
             Width = 16;
             Height = 16;

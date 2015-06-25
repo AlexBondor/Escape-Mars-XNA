@@ -9,14 +9,13 @@ namespace Escape_Mars_XNA.Goal.Evaluators
         public GetHealthPackEvaluator()
         {
             Type = Evl.GetHealthPack;
-            SingleGoalInstance = true;
         }
 
         public override double CalculateDesirability(MovingEntity owner)
         {
             // First grab the distance tot the closest instance of
             // a health item
-            var distance = EntityFeature.DistanceToItem(owner, EntityFeature.Itm.HealthPack);
+            var distance = EntityFeature.DistanceToItem(owner, BaseGameEntity.Itm.HealthPack);
 
             // If distance feature is rated with a value of 1 it means
             // that the item is either not present on the map or far
@@ -27,7 +26,7 @@ namespace Escape_Mars_XNA.Goal.Evaluators
                 return 0;
             }
 
-            const double tweaker = 0.2;
+            const double tweaker = 0.05;
 
             var desirability = tweaker * (1 - EntityFeature.Health(owner)) / distance;
             

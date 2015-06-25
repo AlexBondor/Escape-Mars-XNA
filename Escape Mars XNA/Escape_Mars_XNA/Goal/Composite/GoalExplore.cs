@@ -1,5 +1,6 @@
 ﻿using Escape_Mars_XNA.Entity;
 using Escape_Mars_XNA.Helper;
+using Escape_Mars_XNA.Steering;
 
 namespace Escape_Mars_XNA.Goal.Composite
 {
@@ -14,20 +15,20 @@ namespace Escape_Mars_XNA.Goal.Composite
         public override void Activate()
         {
             Status = Sts.Active;
+
+            Owner.Behaviour = SteeringBehaviours.Bvr.Explore;
         }
 
         public override Sts Process()
         {
             ActivateIfInactive();
 
-            Owner.Behaviour = GameConfig.Bvr.Explore;
-
             return Status;
         }
 
         public override void Terminate()
         {
-            Owner.Behaviour = GameConfig.Bvr.Idle;
+            Owner.Behaviour = SteeringBehaviours.Bvr.Idle;
         }
     }
 }

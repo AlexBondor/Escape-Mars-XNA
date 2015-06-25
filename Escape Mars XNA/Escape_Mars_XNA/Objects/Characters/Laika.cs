@@ -10,9 +10,11 @@ namespace Escape_Mars_XNA.Objects.Characters
 {
     class Laika:MovingEntity
     {
+        private double _brainArbitrateTime;
+
         public Laika(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.Laika;
+            ItemType = Itm.Laika;
 
             // Sprite dimensions
             Width = 32;
@@ -40,9 +42,17 @@ namespace Escape_Mars_XNA.Objects.Characters
 
         public override void Update(double elapsedTime)
         {
+            _brainArbitrateTime += elapsedTime;
+
             UpdatePathPlanning();
 
-            Brain.Process(); 
+            Brain.Process();
+
+            if (_brainArbitrateTime > 1)
+            {
+                _brainArbitrateTime = 0;
+                Brain.Arbitrate();
+            }
 
             UpdatePhysics(elapsedTime);
 
@@ -60,11 +70,6 @@ namespace Escape_Mars_XNA.Objects.Characters
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
                 ); 
-        }
-
-        public override void UpdateGraphDrawing()
-        {
-            //throw new System.NotImplementedException();
         }
     }
 }

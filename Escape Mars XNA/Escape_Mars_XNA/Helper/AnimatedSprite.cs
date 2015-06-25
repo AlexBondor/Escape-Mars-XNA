@@ -4,10 +4,6 @@ namespace Escape_Mars_XNA.Helper
 {
     public class AnimatedSprite
     {
-        public SpriteFont Font { get; set; }
-
-        public bool Animate { get; set; }
-
         public enum Direction
         {
             Down = 0,
@@ -18,6 +14,10 @@ namespace Escape_Mars_XNA.Helper
 
         public Texture2D Texture;
 
+        public SpriteFont Font { get; set; }
+
+        public bool Animate { get; set; }
+
         private double _elapsedTime;
 
         private readonly int _col;
@@ -25,6 +25,7 @@ namespace Escape_Mars_XNA.Helper
         public int CurrentCol { get; private set; }
 
         private float _animationSpeed;
+
         public float AnimationSpeed
         {
             get { return _animationSpeed; }

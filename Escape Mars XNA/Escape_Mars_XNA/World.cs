@@ -27,8 +27,17 @@ namespace Escape_Mars_XNA
 
         public List<BaseGameEntity> ObjectsToBeRemoved = new List<BaseGameEntity>();
 
-        public List<BaseGameEntity> ObjectsToBeAdded = new List<BaseGameEntity>(); 
+        public List<BaseGameEntity> ObjectsToBeAdded = new List<BaseGameEntity>();
 
+        public bool Paused { get; set; }
+
+        private SpriteBatch _spriteBatch;
+
+        private bool _escapedMars;
+
+        private bool _failedToEscapeMars;
+
+        private string _additionalMessage;
 
 
         /**
@@ -47,7 +56,7 @@ namespace Escape_Mars_XNA
          */
         public MovingEntity Robot;
 
-        public BaseGameEntity Rocket;
+        public MovingEntity Rocket;
 
         public int HealthPacksCount;
 
@@ -78,6 +87,9 @@ namespace Escape_Mars_XNA
             HealthPacksCount = 0;
             RocketPartsCount = 3;
             AliensCount = 0;
+            _escapedMars = false;
+            _failedToEscapeMars = false;
+            Paused = false;
 
             var node = MapGraph.GetNodeByRowCol(3, 1);
             var computer = new Computer(node.Position);
@@ -164,6 +176,8 @@ namespace Escape_Mars_XNA
         // Update all world objects
         public void Update(GameTime gameTime)
         {
+            if (Paused) return;
+
             if (AliensCount == 0)
             {
                 for (var i = 0; i < GameConfig.MaxAlienCount; i++)
@@ -195,13 +209,21 @@ namespace Escape_Mars_XNA
         private void AddAlien()
         {
             var position = MapGraph.RandomValidPosition(0, MapGraph.Rows, 0, MapGraph.Cols);
-            var sneaky = new Sneaky(position);
-            sneaky.AnimatedSprite.Font = _contentManager.Load<SpriteFont>("Font");
-            sneaky.AnimatedSprite.Texture = _contentManager.Load<Texture2D>(sneaky.GetType().Name);
+            var sneaky = new Sneaky(position)
+            {
+                AnimatedSprite =
+                {
+                    Font = _contentManager.Load<SpriteFont>("Font"),
+                    Texture = _contentManager.Load<Texture2D>("Sneaky")
+                }
+                
+            };
+
             Objects.Add(sneaky);
+
             Robot.Enemies.Add(sneaky);
             sneaky.Enemies.Add(Robot);
-            Robot.Brain.Arbitrate();
+
             AliensCount ++;
         }
         
@@ -260,25 +282,41 @@ namespace Escape_Mars_XNA
         }
         
         // Draw all world objects
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            DrawMap(spriteBatch);
+            DrawMap();
             foreach (var item in Objects)
             {
-                item.Draw(spriteBatch);
+                item.Draw(_spriteBatch);
+            }
+            if (_failedToEscapeMars)
+            {
+                DisplayMessage("Failed to Escape Mars!", _additionalMessage);
+            }
+            if (_escapedMars)
+            {
+                DisplayMessage("Escaped Mars!", _additionalMessage);
             }
         }
 
+        private void DisplayMessage(string message, string additionalMessage)
+        {
+            var bigFont = _contentManager.Load<SpriteFont>("BigFont");
+            var font = _contentManager.Load<SpriteFont>("Font");
+            _spriteBatch.DrawString(bigFont, message, new Vector2(200, 200), Color.White);
+            _spriteBatch.DrawString(font, additionalMessage, new Vector2(200, 270), Color.White);
+        }
+
         // Draw the world map
-        public void DrawMap(SpriteBatch spriteBatch)
+        public void DrawMap()
         {
             foreach (var node in MapGraph.Nodes)
             {
-                node.Draw(spriteBatch);
+                node.Draw(_spriteBatch);
             }
             foreach (var edge in MapGraph.DrawableEdges)
             {
-                edge.Draw(spriteBatch);
+                edge.Draw(_spriteBatch);
             }
         }
 
@@ -324,13 +362,13 @@ namespace Escape_Mars_XNA
             }
         }
 
-        public List<Vector2> GetItemTypePositions(EntityFeature.Itm itemType)
+        public List<Vector2> GetItemTypePositions(BaseGameEntity.Itm itemType)
         {
             var items = Objects.Where(o => o.ItemType == itemType);
             return items.Select(item => item.Position).ToList();
         }
 
-        public Vector2 GetClosestItemTypePosition(Vector2 ownerPosition, EntityFeature.Itm itemType)
+        public Vector2 GetClosestItemTypePosition(Vector2 ownerPosition, BaseGameEntity.Itm itemType)
         {
             var items = GetItemTypePositions(itemType);
 
@@ -351,23 +389,30 @@ namespace Escape_Mars_XNA
             return _contentManager;
         }
 
-        public void DisplayInfo(SpriteBatch spriteBatch)
+        public void DisplayInfo()
         {
             var position = new Vector2(10, 610);
-            spriteBatch.DrawString(Robot.AnimatedSprite.Font, "G - Toggle graph", position, Color.Black);
+            _spriteBatch.DrawString(Robot.AnimatedSprite.Font, "G - Toggle graph", position, Color.Black);
             position.Y += 15;
-            spriteBatch.DrawString(Robot.AnimatedSprite.Font, "B - Display goals stack", position, Color.Black);
+            _spriteBatch.DrawString(Robot.AnimatedSprite.Font, "B - Toggle display goals stack", position, Color.Black);
+            
             position.X += 170;
             position.Y -= 15;
-            spriteBatch.DrawString(Robot.AnimatedSprite.Font, "R - Restart game", position, Color.Black);
+            _spriteBatch.DrawString(Robot.AnimatedSprite.Font, "R - Restart game", position, Color.Black);
             position.Y += 15;
-            spriteBatch.DrawString(Robot.AnimatedSprite.Font, "Left mouse - Robot move to", position, Color.Black);
+            _spriteBatch.DrawString(Robot.AnimatedSprite.Font, "P - Togle pause game", position, Color.Black);
+
             position.X += 170;
             position.Y -= 15;
-            spriteBatch.DrawString(Robot.AnimatedSprite.Font, "0..4 - Limit stack level", position, Color.Black);
+            _spriteBatch.DrawString(Robot.AnimatedSprite.Font, "H - Damage robot", position, Color.Black);
+            
+            position.X += 170;
+            _spriteBatch.DrawString(Robot.AnimatedSprite.Font, "0..4 - Limit stack level", position, Color.Black);
+            position.Y += 15;
+            _spriteBatch.DrawString(Robot.AnimatedSprite.Font, "Left mouse - Robot move to", position, Color.Black);
         }
 
-        public void RemoveItemOfTypeFromPosition(Vector2 position, EntityFeature.Itm type)
+        public void RemoveItemOfTypeFromPosition(Vector2 position, BaseGameEntity.Itm type)
         {
             var item = Objects.First(i => Vector2Helper.DistanceSq(i.Position, position) < 1 && i.ItemType == type);
 
@@ -377,13 +422,39 @@ namespace Escape_Mars_XNA
 
             switch (item.ItemType)
             {
-                case EntityFeature.Itm.HealthPack:
+                case BaseGameEntity.Itm.HealthPack:
                     HealthPacksCount--;
                     break;
-                case EntityFeature.Itm.Ammo:
+                case BaseGameEntity.Itm.Ammo:
                     AmmoPacksCount--;
                     break;
             }
+        }
+
+        public void GameOver(BaseGameEntity.Itm itemType)
+        {
+            Paused = true;
+            _failedToEscapeMars = true;
+            if (itemType == BaseGameEntity.Itm.Robot)
+            {
+                _additionalMessage = "Your robot couldn't stand the heat of Mars!";
+            }
+            else
+            {
+                _additionalMessage = "Your robot let the enemies destroy the rocket!";
+            }
+        }
+
+        public void GameWon()
+        {
+            Paused = true;
+            _escapedMars = true;
+            _additionalMessage = "Your robot did a great job fighting with aliens!";
+        }
+
+        public void SetSpriteBatch(SpriteBatch spriteBatch)
+        {
+            _spriteBatch = spriteBatch;
         }
     }
 }

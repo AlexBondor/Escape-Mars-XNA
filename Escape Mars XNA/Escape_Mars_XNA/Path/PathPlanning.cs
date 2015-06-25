@@ -12,9 +12,6 @@ namespace Escape_Mars_XNA.Path
 
         private readonly Graph _navGraph;
 
-        private Vector2 _startPosition;
-        private Vector2 _endPos;
-
         private Vector2 _intermediatePos;
         private Vector2 _currentPos;
 
@@ -31,9 +28,6 @@ namespace Escape_Mars_XNA.Path
 
         public bool CreatePath(Vector2 from, Vector2 to)
         { 
-            _startPosition = from;
-            _endPos = to;
-
             var startNode = _navGraph.GetNodeByPosition(from);
             var endNode = _navGraph.GetNodeByPosition(to);
 
@@ -77,7 +71,7 @@ namespace Escape_Mars_XNA.Path
             return _aStar;
         }
 
-        public double GetCostToClosestItem(EntityFeature.Itm itemType)
+        public double GetCostToClosestItem(BaseGameEntity.Itm itemType)
         {
             var tempAStar = new AStar(_navGraph);
 

@@ -11,7 +11,7 @@ namespace Escape_Mars_XNA.Objects.RocketParts
 
         public Toolbox(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.RocketPart;
+            ItemType = Itm.RocketPart;
 
             Width = 32;
             Height = 32;

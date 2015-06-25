@@ -40,6 +40,11 @@ namespace Escape_Mars_XNA.Goal.Composite
             Status = Sts.Completed;
             Owner.World.ObjectsToBeRemoved.Add(_rocketPart);
             Owner.World.RocketPartsCount--;
+            if (Owner.World.RocketPartsCount == 0)
+            {
+                Owner.World.Paused = true;
+                Owner.World.GameWon();
+            }
 
             return Status;
         }

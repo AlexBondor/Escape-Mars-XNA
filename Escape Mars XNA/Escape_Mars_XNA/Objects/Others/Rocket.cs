@@ -5,11 +5,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Escape_Mars_XNA.Objects.Others
 {
-    class Rocket : BaseGameEntity
+    class Rocket : MovingEntity
     {
         public Rocket(Vector2 position)
         {
-            ItemType = EntityFeature.Itm.Rocket;
+            Health = 300;
+
+            ItemType = Itm.Rocket;
 
             // Sprite dimensions
             Width = 128;
@@ -37,7 +39,14 @@ namespace Escape_Mars_XNA.Objects.Others
                 CollisionBox,
                 new Rectangle(AnimatedSprite.CurrentCol * Width, AnimatedSprite.CurrentRow * Height, Width, Height),
                 Color.White
-                ); 
+                );
+            var position = new Vector2(CollisionBox.X + Width / 3 + Width / 8, CollisionBox.Y - 20);
+
+            spriteBatch.DrawString(AnimatedSprite.Font, Health.ToString(), position, new Color(0, 255, 0));
+        }
+        protected override void OnDie()
+        {
+            World.GameOver(ItemType);
         }
     }
 }
